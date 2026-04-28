@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="zxx">
+{% load static %}
+    
+<!-- Mirrored from templates.hibootstrap.com/jeel/default/appointment.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 04 Feb 2026 09:40:54 GMT -->
+<head>
+        <!--=== Meta Tags ===-->
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!--=== Link of CSS ===-->
+        <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}">
+        <link rel="stylesheet" href="{% static 'assets/css/boxicons.min.css' %}">
+        <link rel="stylesheet" href="{% static 'assets/css/meanmenu.css' %}">
+        <link rel="stylesheet" href="{% static 'assets/css/animate.min.css' %}">
+        <link rel="stylesheet" href="{% static 'assets/css/owl.carousel.min.css' %}">
+        <link rel="stylesheet" href="{% static 'assets/css/owl.theme.default.min.css' %}">
+        <link rel="stylesheet" href="{% static 'assets/css/modal-video.min.css' %}">
+        <link rel="stylesheet" href="{% static 'assets/css/odometer.min.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'assets/css/settings.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'assets/css/layers.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'assets/css/navigation.css' %}">
+        <link rel="stylesheet" href="{% static 'assets/css/nice-select.min.css' %}">
+        <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+        <link rel="stylesheet" href="{% static 'assets/css/responsive.css' %}">
+        <link rel="stylesheet" href="{% static 'assets/css/theme-dark.css' %}">
+
+        <!--=== Title & Favicon ===-->
+        <title>Jeel - Beauty Saloon & Wellness Center HTML Template</title>
+        <link rel="icon" type="image/png" href="{% static 'assets/images/favicon.png' %}">
+    </head>
+    <body>
+        <!-- Preloader -->
+        <div class="loader">
+            <div class="d-table">
+                <div class="d-table-cell">
+                    <div class="loading">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Preloader -->
+
+        <!-- Navbar -->
+        <div class="navbar-area sticky-top"> 
+            <!-- Menu For Mobile Device -->
+            <div class="mobile-nav">
+                <a href="{% url 'index' %}" class="logo">
+                    <img src="{% static 'assets/images/logo.png' %}" alt="Logo">
+                </a>
+            </div>
+
+            <!-- Menu For Desktop Device -->
+            <div class="main-nav two four">
+                <div class="container-fluid">
+                    <nav class="navbar navbar-expand-md navbar-light">
+                        <a class="navbar-brand" href="{% url 'index' %}">
+                            <img src="{% static 'assets/images/logo.png' %}" alt="Logo">
+                        </a>
+                        <div class="collapse navbar-collapse mean-menu" id="navbarSupportedContent">
+                            <ul class="navbar-nav">
+                                <li class="nav-item">
+                                    <a href="{% url 'index' %}" class="nav-link">HOME</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{% url 'analysis' %}" class="nav-link">SKIN ANALYSIS</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{% url 'routines' %}" class="nav-link">MY ROUTINES</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{% url 'progress' %}" class="nav-link">PROGRESS</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{% url 'scan_history' %}" class="nav-link">ANALYSIS HISTORY</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{% url 'shop' %}" class="nav-link">SKINCARE PRODUCTS</a>
+                                </li>
+                            </ul>
+
+                            <div class="side-nav two">
+                                {% if user.is_authenticated %}
+                                <a class="common-btn two nav-btn" href="{% url 'profile' %}" style="margin-right: 10px;">
+                                    <i class='bx bx-user'></i> PROFILE
+                                </a>
+                                <a class="common-btn nav-btn" href="{% url 'logout' %}">LOGOUT</a>
+                                {% else %}
+                                <a class="common-btn two nav-btn" href="{% url 'sign_in' %}">SIGN IN</a>
+                                {% endif %}
+                            </div>
+
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+        <!-- End Navbar -->
+
+        <!-- Page Title -->
+        <div class="page-title-wrap">
+            <div class="page-title-area title-img-seven">
+                <div class="title-shape">
+                    <img src="assets/images/title/title-shape1.png" alt="Shape">
+                </div>
+                <div class="d-table">
+                    <div class="d-table-cell">
+    
+                        <div class="title-content">
+                            <h2>Appointment</h2>
+                            <ul>
+                                <li>
+                                    <a href="index.html">Home</a>
+                                </li>
+                                <li>
+                                    <span>My Profile</span>
+                                </li>
+                            </ul>
+                        </div>
+    
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Page Title -->
+
+        <!-- Profile Dashboard -->
+        <div class="user-dashboard-area ptb-100" style="background-color: #f9f9f9;">
+            <div class="container">
+                <div class="section-title">
+                    <h2>My Skin Dashboard</h2>
+                    <p>Track your journey to clear, healthy skin.</p>
+                </div>
+                
+                {% if messages %}
+                <div class="row">
+                    <div class="col-12 mb-4">
+                        {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }} alert-dismissible fade show shadow-sm" role="alert">
+                            {{ message }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+                
+                <div class="row">
+                    <!-- Sidebar / User Card -->
+                    <div class="col-lg-4">
+                        <div class="card shadow-sm border-0 mb-4" style="border-radius: 15px; overflow: hidden;">
+                            <div class="card-body text-center p-4">
+                                <div class="avatar-container mb-3 position-relative d-inline-block">
+                                    {% if user.profile.profile_pic %}
+                                        <img src="{{ user.profile.profile_pic.url }}" alt="User Avatar" class="rounded-circle" width="120" height="120" style="object-fit: cover; border: 4px solid #fff; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+                                    {% else %}
+                                        <img src="{% static 'assets/images/team/team1.jpg' %}" alt="Default Avatar" class="rounded-circle" width="120" height="120" style="object-fit: cover; border: 4px solid #fff; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+                                    {% endif %}
+                                    <span class="position-absolute bottom-0 end-0 bg-success p-2 border border-light rounded-circle">
+                                        <span class="visually-hidden">New alerts</span>
+                                    </span>
+                                </div>
+                                <h4 class="mb-1">{{ user.username }}</h4>
+                                <p class="text-muted mb-3">{{ user.email }}</p>
+                                
+                                <div class="d-flex justify-content-center gap-2 mb-4">
+                                    <span class="badge bg-light text-dark border px-3 py-2 rounded-pill">
+                                        <i class='bx bx-body'></i> {{ user.profile.skin_type|default:"Normal" }}
+                                    </span>
+                                    {% if user.profile.age %}
+                                    <span class="badge bg-light text-dark border px-3 py-2 rounded-pill">
+                                        <i class='bx bx-calendar'></i> {{ user.profile.age }} Years
+                                    </span>
+                                    {% endif %}
+                                </div>
+
+                                <div class="d-grid gap-2">
+                                    <button class="btn common-btn two w-100" data-bs-toggle="modal" data-bs-target="#editProfileModal">Edit Profile</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Stats Summary Widget -->
+                         <div class="card shadow-sm border-0 mb-4" style="border-radius: 15px;">
+                            <div class="card-body">
+                                <h5 class="card-title mb-3">Stats Overview</h5>
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0">
+                                        Scans Completed
+                                        <span class="badge bg-primary rounded-pill">{{ scans.count }}</span>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0">
+                                        Routine Consistency
+                                        <span class="badge bg-success rounded-pill">85%</span>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0">
+                                        Skin Health Score
+                                        <span class="badge bg-info rounded-pill">
+                                            {% if latest_scan %}
+                                                {{ latest_scan.acne_score }} <!-- Placeholder logic for health score -->
+                                            {% else %}
+                                                N/A
+                                            {% endif %}
+                                        </span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Orders Link -->
+                        <div class="card shadow-sm border-0 mb-4 bg-primary text-white" style="border-radius: 15px;">
+                            <div class="card-body text-center p-4">
+                                <h5 class="card-title text-white mb-3"><i class='bx bx-shopping-bag'></i> Order History</h5>
+                                <p class="mb-4">Track your product orders and view your purchase history.</p>
+                                <a href="{% url 'orders' %}" class="btn btn-light rounded-pill px-4 text-primary font-weight-bold">View My Orders</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Main Content -->
+                    <div class="col-lg-8">
+                        
+
+                         <!-- Analysis History Section -->
+                        <div class="card shadow-sm border-0" style="border-radius: 15px;">
+                            <div class="card-header bg-white border-bottom-0 pt-4 px-4 pb-0 d-flex justify-content-between align-items-center">
+                                <h4 class="mb-0">Analysis History</h4>
+                                <a href="{% url 'analysis' %}" class="btn common-btn two btn-sm">New Scan</a>
+                            </div>
+                            <div class="card-body p-4">
+                                {% if scans %}
+                                <div class="table-responsive">
+                                    <table class="table table-hover align-middle">
+                                        <thead class="table-light">
+                                            <tr>
+                                                <th>Date</th>
+                                                <th>Scan Image</th>
+                                                <th>Key Metric</th>
+                                                <th>Status</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for scan in scans|slice:":5" %}
+                                            <tr>
+                                                <td>{{ scan.scan_date|date:"M d, Y" }}</td>
+                                                <td>
+                                                    <img src="{{ scan.image.url }}" class="rounded" width="40" height="40" style="object-fit: cover;">
+                                                </td>
+                                                <td>
+                                                    <span class="badge bg-light text-dark border">Acne: {{ scan.acne_score }}</span>
+                                                </td>
+                                                <td><span class="badge bg-success">Completed</span></td>
+                                                <td>
+                                                    <a href="{% url 'scan_detail' scan.id %}" class="btn btn-outline-secondary btn-sm rounded-circle"><i class='bx bx-chevron-right'></i></a>
+                                                </td>
+                                            </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="text-center mt-3">
+                                    <a href="{% url 'scan_history' %}" class="btn btn-link text-primary p-0">View All History <i class='bx bx-right-arrow-alt'></i></a>
+                                </div>
+                                {% else %}
+                                    <div class="text-center py-5">
+                                        <img src="{% static 'assets/images/services/service1.jpg' %}" alt="No scans" class="rounded-circle mb-3 border" width="80" height="80">
+                                        <h5>No Analysis Yet</h5>
+                                        <p class="text-muted">Take a skin scan to start tracking your progress.</p>
+                                        <a href="{% url 'analysis' %}" class="btn common-btn two">Start Analysis</a>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Profile Dashboard -->
+
+        <!--=== Footer ===-->
+        <footer class="footer-area two pt-100 pb-70">
+            <div class="footer-shape">
+                <img src="assets/images/footer-shape1.png" alt="Shape">
+            </div>
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-sm-6 col-lg-4">
+                        <div class="footer-item">
+                            <div class="footer-contact">
+                                <h3>Contact Info:</h3>
+                                <ul class="info">
+                                    <li>
+                                        <a href="#">3 Edgar Buildings, George Street, BA1 2FJ</a>
+                                    </li>
+                                    <li>
+                                        <span>Hotline:</span>
+                                        <a href="tel:9645658765">964-565-8765</a>
+                                    </li>
+                                    <li>
+                                        <span>Hotline:</span>
+                                        <a href="tel:5464169576">546-416-9576</a>
+                                    </li>
+                                    <li>
+                                        <span>Email:</span>
+                                        <a href="https://templates.hibootstrap.com/cdn-cgi/l/email-protection#066e636a6a69466c63636a2865696b"><span class="__cf_email__" data-cfemail="ec8489808083ac86898980c28f8381">[email&#160;protected]</span></a>
+                                    </li>
+                                    <li>
+                                        <span>Email:</span>
+                                        <a href="https://templates.hibootstrap.com/cdn-cgi/l/email-protection#e980878f86a9838c8c85c78a8684"><span class="__cf_email__" data-cfemail="1970777f7659737c7c75377a7674">[email&#160;protected]</span></a>
+                                    </li>
+                                </ul>
+                                <ul class="social">
+                                    <li>
+                                        <a href="https://www.facebook.com/" target="_blank">
+                                            <i class='bx bxl-facebook'></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="https://www.twitter.com/" target="_blank">
+                                            <i class='bx bxl-twitter'></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="https://www.pinterest.com/" target="_blank">
+                                            <i class='bx bxl-pinterest-alt'></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="https://www.linkedin.com/" target="_blank">
+                                            <i class='bx bxl-linkedin'></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="https://www.youtube.com/" target="_blank">
+                                            <i class='bx bxl-youtube'></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6 col-lg-4">
+                        <div class="footer-item">
+                            <div class="footer-img">
+                                <a href="index.html">
+                                    <img src="assets/images/logo-two.png" alt="Footer">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6 col-lg-4">
+                        <div class="footer-item">
+                            <h3>Open Hours:</h3>
+                            <div class="footer-hours">
+                                <div class="left">
+                                    <ul>
+                                        <li>Saturday:</li>
+                                        <li>Sunday:</li>
+                                        <li>Monday:</li>
+                                        <li>Tuesday:</li>
+                                        <li>Wednesday:</li>
+                                        <li>Thursday:</li>
+                                    </ul>
+                                </div>
+                                <div class="right">
+                                    <ul>
+                                        <li>
+                                            08:00
+                                            <span>23:00</span>
+                                        </li>
+                                        <li>
+                                            08:00
+                                            <span>23:00</span>
+                                        </li>
+                                        <li>
+                                            08:00
+                                            <span>21:00</span>
+                                        </li>
+                                        <li>
+                                            09:00
+                                            <span>23:00</span>
+                                        </li>
+                                        <li>
+                                            09:00
+                                            <span>23:00</span>
+                                        </li>
+                                        <li>
+                                            09:00
+                                            <span>23:00</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!--=== End Footer ===-->
+
+        <!--=== Copyright ===-->
+        <div class="copyright-area two">
+            <div class="container">
+                <div class="copyright-item">
+                    <p>Copyright @<script data-cfasync="false" src="../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>document.write(new Date().getFullYear())</script> Jeel. Designed By <a href="https://hibootstrap.com/" target="_blank">HiBootstrap</a></p>
+                </div>
+            </div>
+        </div>
+        <!--=== End Copyright ===-->
+
+        <!-- Go Top -->
+        <div class="go-top">
+            <i class='bx bxs-up-arrow-alt'></i>
+            <i class='bx bxs-up-arrow-alt'></i>
+        </div>
+        <!-- End Go Top -->
+
+        <!--=== Essential JS ===-->
+        <script src="{% static 'assets/js/jquery.min.js' %}"></script>
+        <script src="{% static 'assets/js/bootstrap.bundle.min.js' %}"></script>
+        <script src="{% static 'assets/js/form-validator.min.js' %}"></script>
+        <script src="{% static 'assets/js/contact-form-script.js' %}"></script>
+        <script src="{% static 'assets/js/jquery.ajaxchimp.min.js' %}"></script>
+        <script src="{% static 'assets/js/jquery.meanmenu.js' %}"></script>
+        <script src="{% static 'assets/js/wow.min.js' %}"></script>
+        <script src="{% static 'assets/js/owl.carousel.min.js' %}"></script>
+        <script src="{% static 'assets/js/jquery-modal-video.min.js' %}"></script>
+        <script src="{% static 'assets/js/odometer.min.js' %}"></script>
+        <script src="{% static 'assets/js/jquery.appear.min.js' %}"></script>
+		<script src="{% static 'assets/js/jquery.themepunch.tools.min.js' %}"></script>
+		<script src="{% static 'assets/js/jquery.themepunch.revolution.min.js' %}"></script>
+		<script src="{% static 'assets/js/extensions/revolution.extension.actions.min.js' %}"></script>
+		<script src="{% static 'assets/js/extensions/revolution.extension.carousel.min.js' %}"></script>
+		<script src="{% static 'assets/js/extensions/revolution.extension.kenburn.min.js' %}"></script>
+		<script src="{% static 'assets/js/extensions/revolution.extension.layeranimation.min.js' %}"></script>
+		<script src="{% static 'assets/js/extensions/revolution.extension.migration.min.js' %}"></script>
+		<script src="{% static 'assets/js/extensions/revolution.extension.navigation.min.js' %}"></script>
+		<script src="{% static 'assets/js/extensions/revolution.extension.parallax.min.js' %}"></script>
+		<script src="{% static 'assets/js/extensions/revolution.extension.slideanims.min.js' %}"></script>
+        <script src="{% static 'assets/js/extensions/revolution.extension.video.min.js' %}"></script>
+        <script src="{% static 'assets/js/jquery.nice-select.min.js' %}"></script>
+        <script src="{% static 'assets/js/custom.js' %}"></script>
+        
+        <!-- Chart.js -->
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script>
+            // Chart.js Mock Data
+            var ctx = document.getElementById('skinScoreChart').getContext('2d');
+            var myChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: [{% for scan in scans reversed %}"{{ scan.scan_date|date:'M d' }}",{% endfor %}],
+                    datasets: [{
+                        label: 'Acne Score',
+                        data: [{% for scan in scans reversed %}{{ scan.acne_score }},{% endfor %}],
+                        borderColor: 'rgba(255, 99, 132, 1)',
+                        borderWidth: 2,
+                        fill: false
+                    },
+                    {
+                        label: 'Oiliness',
+                        data: [{% for scan in scans reversed %}{{ scan.oiliness_score }},{% endfor %}],
+                        borderColor: 'rgba(255, 206, 86, 1)',
+                        borderWidth: 2,
+                        fill: false
+                    },
+                    {
+                        label: 'Wrinkles',
+                        data: [{% for scan in scans reversed %}{{ scan.wrinkle_score }},{% endfor %}],
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderWidth: 2,
+                        fill: false
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 100
+                        }
+                    }
+                }
+            });
+
+            // Before/After Slider
+            var slider = document.getElementById("before-after-slider");
+            var foreground = document.getElementById("img-foreground");
+
+            slider.oninput = function() {
+                foreground.style.width = this.value + "%";
+            }
+        </script>
+        
+        <!-- Edit Profile Modal -->
+        <div class="modal fade" id="editProfileModal" tabindex="-1" aria-labelledby="editProfileModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editProfileModalLabel">Edit My Profile</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form action="{% url 'edit_profile' %}" method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="modal-body">
+                            <div class="mb-3">
+                                <label for="profile_pic" class="form-label">Profile Picture</label>
+                                <input type="file" class="form-control" id="profile_pic" name="profile_pic" accept="image/*">
+                            </div>
+                            <div class="mb-3">
+                                <label for="skin_type" class="form-label">Skin Type</label>
+                                <select class="form-select" id="skin_type" name="skin_type">
+                                    <option value="Normal" {% if user.profile.skin_type == 'Normal' %}selected{% endif %}>Normal</option>
+                                    <option value="Dry" {% if user.profile.skin_type == 'Dry' %}selected{% endif %}>Dry</option>
+                                    <option value="Oily" {% if user.profile.skin_type == 'Oily' %}selected{% endif %}>Oily</option>
+                                    <option value="Combination" {% if user.profile.skin_type == 'Combination' %}selected{% endif %}>Combination</option>
+                                    <option value="Sensitive" {% if user.profile.skin_type == 'Sensitive' %}selected{% endif %}>Sensitive</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="age" class="form-label">Age</label>
+                                <input type="number" class="form-control" id="age" name="age" value="{{ user.profile.age|default:'' }}">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn common-btn two">Save Changes</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </body>
+
+<!-- Mirrored from templates.hibootstrap.com/jeel/default/appointment.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 04 Feb 2026 09:40:54 GMT -->
+</html>

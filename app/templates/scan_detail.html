@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+    
+<head>
+        <!--=== Meta Tags ===-->
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!--=== Link of CSS ===-->
+        <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}">
+        <link rel="stylesheet" href="{% static 'assets/css/boxicons.min.css' %}">
+        <link rel="stylesheet" href="{% static 'assets/css/meanmenu.css' %}">
+        <link rel="stylesheet" href="{% static 'assets/css/animate.min.css' %}">
+        <link rel="stylesheet" href="{% static 'assets/css/owl.carousel.min.css' %}">
+        <link rel="stylesheet" href="{% static 'assets/css/owl.theme.default.min.css' %}">
+        <link rel="stylesheet" href="{% static 'assets/css/modal-video.min.css' %}">
+        <link rel="stylesheet" href="{% static 'assets/css/odometer.min.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'assets/css/settings.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'assets/css/layers.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'assets/css/navigation.css' %}">
+        <link rel="stylesheet" href="{% static 'assets/css/nice-select.min.css' %}">
+        <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+        <link rel="stylesheet" href="{% static 'assets/css/responsive.css' %}">
+        <link rel="stylesheet" href="{% static 'assets/css/theme-dark.css' %}">
+
+        <!--=== Title & Favicon ===-->
+        <title>Analysis Report - LCC Skincare</title>
+        <link rel="icon" type="image/png" href="{% static 'assets/images/favicon.png' %}">
+
+        <style>
+            .report-card { border-radius: 20px; border: none; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+            .metric-card { background: #fff; border-radius: 15px; padding: 20px; margin-bottom: 20px; transition: 0.3s; border: 1px solid #f1f1f1; }
+            .metric-card:hover { transform: translateY(-5px); box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+            .p-bar-custom { height: 10px; border-radius: 10px; background-color: #f1f1f1; }
+            .badge-pill-custom { border-radius: 50px; padding: 8px 16px; font-weight: 600; }
+            .product-img-wrapper { height: 120px; display: flex; align-items: center; justify-content: center; background: #f8f9fa; border-radius: 12px; margin-bottom: 15px; }
+            .bg-report { background-color: #f5f7fa; }
+        </style>
+    </head>
+    <body class="bg-report">
+        <!-- Preloader -->
+        <div class="loader">
+            <div class="d-table">
+                <div class="d-table-cell">
+                    <div class="loading">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Preloader -->
+
+        <!-- Navbar -->
+        <div class="navbar-area sticky-top"> 
+            <!-- Menu For Mobile Device -->
+            <div class="mobile-nav">
+                <a href="{% url 'index' %}" class="logo">
+                    <img src="{% static 'assets/images/logo.png' %}" alt="Logo">
+                </a>
+            </div>
+
+            <!-- Menu For Desktop Device -->
+            <div class="main-nav two four">
+                <div class="container-fluid">
+                    <nav class="navbar navbar-expand-md navbar-light">
+                        <a class="navbar-brand" href="{% url 'index' %}">
+                            <img src="{% static 'assets/images/logo.png' %}" alt="Logo">
+                        </a>
+                        <div class="collapse navbar-collapse mean-menu" id="navbarSupportedContent">
+                            <ul class="navbar-nav">
+                                <li class="nav-item">
+                                    <a href="{% url 'index' %}" class="nav-link">HOME</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{% url 'analysis' %}" class="nav-link">SKIN ANALYSIS</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{% url 'routines' %}" class="nav-link">MY ROUTINES</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{% url 'progress' %}" class="nav-link">PROGRESS</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{% url 'scan_history' %}" class="nav-link">ANALYSIS HISTORY</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{% url 'shop' %}" class="nav-link">SKINCARE PRODUCTS</a>
+                                </li>
+                            </ul>
+
+                            <div class="side-nav two">
+                                {% if user.is_authenticated %}
+                                <a class="common-btn two nav-btn" href="{% url 'scan_history' %}" style="margin-right: 10px;">
+                                    <i class='bx bx-arrow-back'></i> ALL SCANS
+                                </a>
+                                <a class="common-btn nav-btn" href="{% url 'logout' %}">LOGOUT</a>
+                                {% else %}
+                                <a class="common-btn two nav-btn" href="{% url 'sign_in' %}">SIGN IN</a>
+                                {% endif %}
+                            </div>
+
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+        <!-- End Navbar -->
+
+        <!-- Page Title -->
+        <div class="page-title-wrap">
+            <div class="page-title-area title-img-six">
+                <div class="title-shape">
+                    <img src="{% static 'assets/images/title/title-shape1.png' %}" alt="Shape">
+                </div>
+                <div class="d-table">
+                    <div class="d-table-cell">
+                        <div class="title-content">
+                            <h2>Analysis Report</h2>
+                            <ul>
+                                <li>
+                                    <a href="{% url 'index' %}">Home</a>
+                                </li>
+                                <li>
+                                    <a href="{% url 'scan_history' %}">History</a>
+                                </li>
+                                <li>
+                                    <span>Detailed Report</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Page Title -->
+
+        <div class="ptb-100">
+            <div class="container">
+                <div class="row">
+                    <!-- Left Column: Scan Overview -->
+                    <div class="col-lg-4">
+                        <div class="card report-card mb-4 text-center p-4">
+                            <h4 class="mb-4">Analysis Snapshot</h4>
+                            <img src="{{ scan.image.url }}" class="img-fluid rounded-4 shadow-sm mb-4" style="max-height: 400px; object-fit: cover; border-radius: 15px;">
+                            <div class="p-3 bg-light rounded-3">
+                                <h2 class="text-success display-4 font-weight-bold mb-0">{{ scan.health_score }}%</h2>
+                                <p class="text-muted text-uppercase small font-weight-bold mb-0">Overall Health Score</p>
+                            </div>
+                            <div class="mt-4 text-start">
+                                <p class="mb-2"><strong><i class='bx bx-calendar'></i> Date:</strong> {{ scan.scan_date|date:"F d, Y" }}</p>
+                                <p class="mb-1"><strong><i class='bx bx-purchase-tag'></i> Skin Type:</strong> <span class="badge bg-primary px-3 rounded-pill">{{ scan.skin_type }}</span></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Column: Detailed Metrics & Recommendations -->
+                    <div class="col-lg-8">
+                        <div class="section-title two text-start mb-4">
+                            <span>Deep Dive</span>
+                            <h2>Diagnostic Results</h2>
+                        </div>
+                        
+                        <!-- Metrics Grid -->
+                        <div class="row">
+                            <div class="col-md-6 text-start">
+                                <div class="metric-card">
+                                    <div class="d-flex justify-content-between mb-2">
+                                        <h6 class="mb-0">Acne Severity</h6>
+                                        <span class="text-danger fw-bold">{{ scan.acne_score }}%</span>
+                                    </div>
+                                    <div class="p-bar-custom mb-2">
+                                        <div class="progress-bar bg-danger rounded-pill" style="height: 10px; width: {{ scan.acne_score }}%"></div>
+                                    </div>
+                                    <small class="text-muted fw-bold">{{ extra_data.severities.acne|default:"Normal" }}</small>
+                                </div>
+                            </div>
+                            <div class="col-md-6 text-start">
+                                <div class="metric-card">
+                                    <div class="d-flex justify-content-between mb-2">
+                                        <h6 class="mb-0">Surface Oiliness</h6>
+                                        <span class="text-warning fw-bold">{{ scan.oiliness_score }}%</span>
+                                    </div>
+                                    <div class="p-bar-custom mb-2">
+                                        <div class="progress-bar bg-warning rounded-pill" style="height: 10px; width: {{ scan.oiliness_score }}%"></div>
+                                    </div>
+                                    <small class="text-muted fw-bold">{{ extra_data.severities.oiliness|default:"Normal" }}</small>
+                                </div>
+                            </div>
+                            <div class="col-md-6 text-start">
+                                <div class="metric-card">
+                                    <div class="d-flex justify-content-between mb-2">
+                                        <h6 class="mb-0">Anti-Aging / Wrinkles</h6>
+                                        <span class="text-info fw-bold">{{ scan.wrinkle_score }}%</span>
+                                    </div>
+                                    <div class="p-bar-custom mb-2">
+                                        <div class="progress-bar bg-info rounded-pill" style="height: 10px; width: {{ scan.wrinkle_score }}%"></div>
+                                    </div>
+                                    <small class="text-muted fw-bold">{{ extra_data.severities.wrinkles|default:"Minimal" }}</small>
+                                </div>
+                            </div>
+                            <div class="col-md-6 text-start">
+                                <div class="metric-card">
+                                    <div class="d-flex justify-content-between mb-2">
+                                        <h6 class="mb-0">Hydration Level</h6>
+                                        <span class="text-success fw-bold">{{ scan.hydration_score }}%</span>
+                                    </div>
+                                    <div class="p-bar-custom mb-2">
+                                        <div class="progress-bar bg-success rounded-pill" style="height: 10px; width: {{ scan.hydration_score }}%"></div>
+                                    </div>
+                                    <small class="text-muted fw-bold">Optimum</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Ingredients Section -->
+                        <div class="card report-card p-4 mt-2 mb-4 text-start">
+                            <h4 class="mb-4">Ingredient Intelligence</h4>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h6 class="text-success mb-3"><i class='bx bx-check-circle'></i> Highly Beneficial</h6>
+                                    <div class="d-flex flex-wrap gap-2">
+                                        {% for ing in extra_data.recommendations.active_ingredients %}
+                                            <span class="badge border bg-white text-success mb-2 me-2 p-2 px-3">{{ ing }}</span>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <h6 class="text-danger mb-3"><i class='bx bx-x-circle'></i> Ingredients to Avoid</h6>
+                                    <div class="d-flex flex-wrap gap-2">
+                                        {% for ing in extra_data.recommendations.avoid_ingredients %}
+                                            <span class="badge border bg-white text-danger mb-2 me-2 p-2 px-3">{{ ing }}</span>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Recommended Routine -->
+                        <div class="card report-card p-4 text-start">
+                            <h4 class="mb-4">Your AI-Powered Routine</h4>
+                            <ul class="nav nav-pills mb-4" id="pills-tab" role="tablist">
+                                <li class="nav-item">
+                                    <button class="nav-link active rounded-pill me-2 px-4" data-bs-toggle="pill" data-bs-target="#morning">MORNING</button>
+                                </li>
+                                <li class="nav-item">
+                                    <button class="nav-link rounded-pill px-4" data-bs-toggle="pill" data-bs-target="#night">NIGHT</button>
+                                </li>
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane fade show active" id="morning">
+                                    <div class="row">
+                                        {% for p in extra_data.recommendations.morning_routine %}
+                                        <div class="col-md-4 col-6 mb-4">
+                                            <div class="text-center p-3 border rounded-4 hover-shadow transition">
+                                                <div class="product-img-wrapper">
+                                                    {% if p.image_url %}
+                                                    <img src="{{ p.image_url }}" class="img-fluid" style="max-height: 80px;">
+                                                    {% else %}
+                                                    <i class='bx bx-package fs-1 text-muted'></i>
+                                                    {% endif %}
+                                                </div>
+                                                <h6 class="small mb-1 fw-bold">{{ p.name }}</h6>
+                                                <p class="small text-primary fw-bold mb-0">${{ p.price }}</p>
+                                            </div>
+                                        </div>
+                                        {% empty %}
+                                        <div class="col-12 text-center text-muted">No specific morning products found.</div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="night">
+                                    <div class="row">
+                                        {% for p in extra_data.recommendations.night_routine %}
+                                        <div class="col-md-4 col-6 mb-4">
+                                            <div class="text-center p-3 border rounded-4 hover-shadow transition">
+                                                <div class="product-img-wrapper">
+                                                    {% if p.image_url %}
+                                                    <img src="{{ p.image_url }}" class="img-fluid" style="max-height: 80px;">
+                                                    {% else %}
+                                                    <i class='bx bx-package fs-1 text-muted'></i>
+                                                    {% endif %}
+                                                </div>
+                                                <h6 class="small mb-1 fw-bold">{{ p.name }}</h6>
+                                                <p class="small text-primary fw-bold mb-0">${{ p.price }}</p>
+                                            </div>
+                                        </div>
+                                        {% empty %}
+                                        <div class="col-12 text-center text-muted">No specific night products found.</div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--=== Footer ===-->
+        <footer class="footer-area two pt-100 pb-70">
+            <div class="footer-shape">
+                <img src="{% static 'assets/images/footer-shape1.png' %}" alt="Shape">
+            </div>
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-sm-6 col-lg-4">
+                        <div class="footer-item">
+                            <div class="footer-contact">
+                                <h3>Contact Info:</h3>
+                                <ul class="info">
+                                    <li>
+                                        <a href="#">3 Edgar Buildings, George Street, BA1 2FJ</a>
+                                    </li>
+                                    <li>
+                                        <span>Hotline:</span>
+                                        <a href="tel:9645658765">964-565-8765</a>
+                                    </li>
+                                    <li>
+                                        <span>Email:</span>
+                                        <a href="mailto:support@lccskincare.com">support@lccskincare.com</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6 col-lg-4">
+                        <div class="footer-item">
+                            <div class="footer-img">
+                                <a href="{% url 'index' %}">
+                                    <img src="{% static 'assets/images/logo-two.png' %}" alt="Footer">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6 col-lg-4">
+                        <div class="footer-item">
+                            <h3>Quick Links:</h3>
+                            <ul>
+                                <li><a href="{% url 'index' %}">Home</a></li>
+                                <li><a href="{% url 'analysis' %}">Skin Analysis</a></li>
+                                <li><a href="{% url 'routines' %}">My Routines</a></li>
+                                <li><a href="{% url 'progress' %}">Progress</a></li>
+                                <li><a href="{% url 'shop' %}">Skincare Products</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!--=== End Footer ===-->
+
+        <!--=== Copyright ===-->
+        <div class="copyright-area two">
+            <div class="container">
+                <p>Copyright <i class='bx bx-copyright'></i> 2024 LCC Skincare. All Rights Reserved</p>
+            </div>
+        </div>
+        <!--=== End Copyright ===-->
+
+        <!-- Go Top -->
+        <div class="go-top">
+            <i class='bx bx-chevrons-up'></i>
+            <i class='bx bx-chevrons-up'></i>
+        </div>
+        <!-- End Go Top -->
+
+        <!--=== Link of JS ===-->
+        <script src="{% static 'assets/js/jquery.min.js' %}"></script>
+        <script src="{% static 'assets/js/bootstrap.bundle.min.js' %}"></script>
+        <script src="{% static 'assets/js/jquery.meanmenu.js' %}"></script>
+        <script src="{% static 'assets/js/wow.min.js' %}"></script>
+        <script src="{% static 'assets/js/owl.carousel.min.js' %}"></script>
+        <script src="{% static 'assets/js/jquery-modal-video.min.js' %}"></script>
+        <script src="{% static 'assets/js/odometer.min.js' %}"></script>
+        <script src="{% static 'assets/js/jquery.appear.min.js' %}"></script>
+        <script src="{% static 'assets/js/jquery.nice-select.min.js' %}"></script>
+        <script src="{% static 'assets/js/custom.js' %}"></script>
+    </body>
+</html>

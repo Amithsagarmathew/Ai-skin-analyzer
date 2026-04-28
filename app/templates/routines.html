@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+    
+<head>
+        <!--=== Meta Tags ===-->
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!--=== Link of CSS ===-->
+        <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}">
+        <link rel="stylesheet" href="{% static 'assets/css/boxicons.min.css' %}">
+        <link rel="stylesheet" href="{% static 'assets/css/meanmenu.css' %}">
+        <link rel="stylesheet" href="{% static 'assets/css/animate.min.css' %}">
+        <link rel="stylesheet" href="{% static 'assets/css/owl.carousel.min.css' %}">
+        <link rel="stylesheet" href="{% static 'assets/css/owl.theme.default.min.css' %}">
+        <link rel="stylesheet" href="{% static 'assets/css/modal-video.min.css' %}">
+        <link rel="stylesheet" href="{% static 'assets/css/odometer.min.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'assets/css/settings.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'assets/css/layers.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'assets/css/navigation.css' %}">
+        <link rel="stylesheet" href="{% static 'assets/css/nice-select.min.css' %}">
+        <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+        <link rel="stylesheet" href="{% static 'assets/css/responsive.css' %}">
+        <link rel="stylesheet" href="{% static 'assets/css/theme-dark.css' %}">
+
+        <!--=== Title & Favicon ===-->
+        <title>My Routines - LCC Skincare</title>
+        <link rel="icon" type="image/png" href="{% static 'assets/images/favicon.png' %}">
+    </head>
+    <body>
+        <!-- Preloader -->
+        <div class="loader">
+            <div class="d-table">
+                <div class="d-table-cell">
+                    <div class="loading">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Preloader -->
+
+        <!-- Navbar -->
+        <div class="navbar-area sticky-top"> 
+            <!-- Menu For Mobile Device -->
+            <div class="mobile-nav">
+                <a href="{% url 'index' %}" class="logo">
+                    <img src="{% static 'assets/images/logo.png' %}" alt="Logo">
+                </a>
+            </div>
+
+            <!-- Menu For Desktop Device -->
+            <div class="main-nav two four">
+                <div class="container-fluid">
+                    <nav class="navbar navbar-expand-md navbar-light">
+                        <a class="navbar-brand" href="{% url 'index' %}">
+                            <img src="{% static 'assets/images/logo.png' %}" alt="Logo">
+                        </a>
+                        <div class="collapse navbar-collapse mean-menu" id="navbarSupportedContent">
+                            <ul class="navbar-nav">
+                                <li class="nav-item">
+                                    <a href="{% url 'index' %}" class="nav-link">HOME</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{% url 'analysis' %}" class="nav-link">SKIN ANALYSIS</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{% url 'routines' %}" class="nav-link active">MY ROUTINES</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{% url 'progress' %}" class="nav-link">PROGRESS</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{% url 'scan_history' %}" class="nav-link">ANALYSIS HISTORY</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{% url 'shop' %}" class="nav-link">SKINCARE PRODUCTS</a>
+                                </li>
+                            </ul>
+
+                            <div class="side-nav two">
+                                {% if user.is_authenticated %}
+                                <a class="common-btn two nav-btn" href="{% url 'profile' %}" style="margin-right: 10px;">
+                                    <i class='bx bx-user'></i> PROFILE
+                                </a>
+                                <a class="common-btn nav-btn" href="{% url 'logout' %}">LOGOUT</a>
+                                {% else %}
+                                <a class="common-btn two nav-btn" href="{% url 'sign_in' %}">SIGN IN</a>
+                                {% endif %}
+                            </div>
+
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+        <!-- End Navbar -->
+
+        <!-- Page Title -->
+        <div class="page-title-wrap">
+            <div class="page-title-area title-img-six">
+                <div class="title-shape">
+                    <img src="{% static 'assets/images/title/title-shape1.png' %}" alt="Shape">
+                </div>
+                <div class="d-table">
+                    <div class="d-table-cell">
+    
+                        <div class="title-content">
+                            <h2>My Skincare Routines</h2>
+                            <ul>
+                                <li>
+                                    <a href="{% url 'index' %}">Home</a>
+                                </li>
+                                <li>
+                                    <span>My Routines</span>
+                                </li>
+                            </ul>
+                        </div>
+    
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Page Title -->
+
+        <!-- Routines Section -->
+        <section class="services-area two pt-100 pb-70">
+            <div class="container">
+                <div class="section-title two">
+                    <span>Personalized For You</span>
+                    <h2>Your Daily Skincare Routines</h2>
+                    <p>Follow these personalized routines based on your skin analysis results for the best outcomes.</p>
+                </div>
+
+                <div class="row">
+                    {% if routine.morning_products.exists or routine.night_products.exists %}
+                    <!-- Morning Routine -->
+                    <div class="col-lg-6 mb-4">
+                        <div class="card shadow-lg border-0 h-100">
+                            <div class="card-header bg-warning text-dark">
+                                <h4 class="mb-0"><i class='bx bx-sun'></i> Morning Routine</h4>
+                            </div>
+                            <div class="card-body">
+                                <ul class="list-group list-group-flush">
+                                    {% for product in routine.morning_products.all %}
+                                    <li class="list-group-item d-flex align-items-center">
+                                        <span class="badge bg-primary rounded-pill me-3">{{ forloop.counter }}</span>
+                                        <div class="d-flex align-items-center">
+                                            {% if product.image %}
+                                            <img src="{{ product.image.url }}" alt="{{ product.name }}" class="rounded-circle me-3" width="40" height="40" style="object-fit: cover;">
+                                            {% endif %}
+                                            <div>
+                                                <strong>{{ product.name }}</strong>
+                                                <p class="mb-0 text-muted small">{{ product.benefits }}</p>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    {% endfor %}
+                                    {% if not routine.morning_products.exists %}
+                                    <li class="list-group-item text-muted">No specific morning products assigned.</li>
+                                    {% endif %}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Night Routine -->
+                    <div class="col-lg-6 mb-4">
+                        <div class="card shadow-lg border-0 h-100">
+                            <div class="card-header bg-dark text-white">
+                                <h4 class="mb-0"><i class='bx bx-moon'></i> Night Routine</h4>
+                            </div>
+                            <div class="card-body">
+                                <ul class="list-group list-group-flush">
+                                    {% for product in routine.night_products.all %}
+                                    <li class="list-group-item d-flex align-items-center">
+                                        <span class="badge bg-secondary rounded-pill me-3">{{ forloop.counter }}</span>
+                                        <div class="d-flex align-items-center">
+                                            {% if product.image %}
+                                            <img src="{{ product.image.url }}" alt="{{ product.name }}" class="rounded-circle me-3" width="40" height="40" style="object-fit: cover;">
+                                            {% endif %}
+                                            <div>
+                                                <strong>{{ product.name }}</strong>
+                                                <p class="mb-0 text-muted small">{{ product.benefits }}</p>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    {% endfor %}
+                                    {% if not routine.night_products.exists %}
+                                    <li class="list-group-item text-muted">No specific night products assigned.</li>
+                                    {% endif %}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    {% else %}
+                    <!-- Empty State -->
+                    <div class="col-12 text-center py-5">
+                        <div class="mb-4">
+                            <i class='bx bx-search-alt fs-1 text-muted' style="font-size: 5rem !important;"></i>
+                        </div>
+                        <h3>No Routine Generated Yet</h3>
+                        <p class="text-muted mb-4">We need to analyze your skin to build your perfect routine.</p>
+                        <a href="{% url 'analysis' %}" class="common-btn two">Start Skin Analysis</a>
+                    </div>
+                    {% endif %}
+                </div>
+
+                <!-- Ingredients Section -->
+                {% if active_ingredients or avoid_ingredients %}
+                <div class="row mt-5">
+                    <!-- Recommended Ingredients -->
+                    <div class="col-lg-6 mb-4">
+                        <div class="card border-success h-100">
+                            <div class="card-header bg-success text-white">
+                                <h5 class="mb-0"><i class='bx bx-check-circle'></i> Recommended Ingredients</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="d-flex flex-wrap gap-2">
+                                    {% for ing in active_ingredients %}
+                                        <span class="badge bg-light text-success border border-success p-2">{{ ing }}</span>
+                                    {% endfor %}
+                                    {% if not active_ingredients %}
+                                        <p class="text-muted small">None specifically identified.</p>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Ingredients to Avoid -->
+                    <div class="col-lg-6 mb-4">
+                        <div class="card border-danger h-100">
+                            <div class="card-header bg-danger text-white">
+                                <h5 class="mb-0"><i class='bx bx-x-circle'></i> Ingredients to Avoid</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="d-flex flex-wrap gap-2">
+                                    {% for ing in avoid_ingredients %}
+                                        <span class="badge bg-light text-danger border border-danger p-2">{{ ing }}</span>
+                                    {% endfor %}
+                                    {% if not avoid_ingredients %}
+                                        <p class="text-muted small">No specific ingredients to avoid for your skin type.</p>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+
+                <!-- Recommended Products -->
+                <div class="section-title two mt-5">
+                    {% if routine.morning_products.exists or routine.night_products.exists %}
+                        <span>For Your Skin Type</span>
+                    {% else %}
+                        <span>Top Rated Skincare</span>
+                    {% endif %}
+                    <h2>Recommended Products</h2>
+                </div>
+                <div class="row">
+                    {% for product in products %}
+                    <div class="col-sm-6 col-lg-4 mb-4">
+                        <div class="card h-100 shadow-sm border-0">
+                            <div style="height: 250px; overflow: hidden; background: #fff; display: flex; align-items: center; justify-content: center; position: relative;">
+                                <a href="{% url 'single_product' %}?id={{ product.id }}" class="d-block w-100 h-100">
+                                    {% if product.image %}
+                                    <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}" style="width: 100%; height: 100%; object-fit: contain; padding: 20px;">
+                                    {% else %}
+                                    <img src="{% static 'assets/images/shop/shop1.jpg' %}" class="card-img-top" alt="Placeholder" style="width: 100%; height: 100%; object-fit: cover;">
+                                    {% endif %}
+                                </a>
+                            </div>
+                            <div class="card-body">
+                                <a href="{% url 'single_product' %}?id={{ product.id }}">
+                                    <h5 class="card-title text-dark">{{ product.name }}</h5>
+                                </a>
+                                <p class="card-text text-muted small">{{ product.description|truncatewords:15 }}</p>
+                                <div class="d-flex justify-content-between align-items-center mt-3">
+                                    <span class="h5 mb-0 text-primary fw-bold">${{ product.price }}</span>
+                                    <a href="{% url 'add_to_cart' product.id %}" class="common-btn two btn-sm" style="padding: 8px 20px;">Add to Cart</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% empty %}
+                    <div class="col-12 text-center">
+                        <p class="text-muted">No products available yet.</p>
+                    </div>
+                    {% endfor %}
+                </div>
+
+            </div>
+        </section>
+        <!-- End Routines Section -->
+
+        <!--=== Footer ===-->
+        <footer class="footer-area two pt-100 pb-70">
+            <div class="footer-shape">
+                <img src="{% static 'assets/images/footer-shape1.png' %}" alt="Shape">
+            </div>
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-sm-6 col-lg-4">
+                        <div class="footer-item">
+                            <div class="footer-contact">
+                                <h3>Contact Info:</h3>
+                                <ul class="info">
+                                    <li>
+                                        <a href="#">3 Edgar Buildings, George Street, BA1 2FJ</a>
+                                    </li>
+                                    <li>
+                                        <span>Hotline:</span>
+                                        <a href="tel:9645658765">964-565-8765</a>
+                                    </li>
+                                    <li>
+                                        <span>Email:</span>
+                                        <a href="mailto:support@lccskincare.com">support@lccskincare.com</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6 col-lg-4">
+                        <div class="footer-item">
+                            <div class="footer-img">
+                                <a href="{% url 'index' %}">
+                                    <img src="{% static 'assets/images/logo-two.png' %}" alt="Footer">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6 col-lg-4">
+                        <div class="footer-item">
+                            <h3>Quick Links:</h3>
+                            <ul>
+                                <li><a href="{% url 'index' %}">Home</a></li>
+                                <li><a href="{% url 'analysis' %}">Skin Analysis</a></li>
+                                <li><a href="{% url 'routines' %}">My Routines</a></li>
+                                <li><a href="{% url 'progress' %}">Progress</a></li>
+                                <li><a href="{% url 'shop' %}">Skincare Products</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!--=== End Footer ===-->
+
+        <!--=== Copyright ===-->
+        <div class="copyright-area two">
+            <div class="container">
+                <p>Copyright <i class='bx bx-copyright'></i> 2024 LCC Skincare. All Rights Reserved</p>
+            </div>
+        </div>
+        <!--=== End Copyright ===-->
+
+        <!-- Go Top -->
+        <div class="go-top">
+            <i class='bx bx-chevrons-up'></i>
+            <i class='bx bx-chevrons-up'></i>
+        </div>
+        <!-- End Go Top -->
+
+        <!--=== Link of JS ===-->
+        <script data-cfasync="false" src="{% static 'assets/js/email-decode.min.js' %}"></script>
+        <script src="{% static 'assets/js/jquery.min.js' %}"></script>
+        <script src="{% static 'assets/js/bootstrap.bundle.min.js' %}"></script>
+        <script src="{% static 'assets/js/form-validator.min.js' %}"></script>
+        <script src="{% static 'assets/js/contact-form-script.js' %}"></script>
+        <script src="{% static 'assets/js/jquery.ajaxchimp.min.js' %}"></script>
+        <script src="{% static 'assets/js/jquery.meanmenu.js' %}"></script>
+        <script src="{% static 'assets/js/wow.min.js' %}"></script>
+        <script src="{% static 'assets/js/owl.carousel.min.js' %}"></script>
+        <script src="{% static 'assets/js/jquery-modal-video.min.js' %}"></script>
+        <script src="{% static 'assets/js/odometer.min.js' %}"></script>
+        <script src="{% static 'assets/js/jquery.appear.min.js' %}"></script>
+        <script src="{% static 'assets/js/jquery.nice-select.min.js' %}"></script>
+        <script src="{% static 'assets/js/custom.js' %}"></script>
+    </body>
+</html>

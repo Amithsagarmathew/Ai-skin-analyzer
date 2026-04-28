@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="zxx">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Shopping Cart - Jeel</title>
+    <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/meanmenu.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/boxicons.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/responsive.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/theme-dark.css' %}">
+    <style>
+        .cart-table img {
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .cart-wrap {
+            background: #fff;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+        }
+        .cart-calc {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 25px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <div class="navbar-area sticky-top">
+        <div class="mobile-nav">
+            <a href="{% url 'index' %}" class="logo">
+                <img src="{% static 'assets/images/logo.png' %}" alt="Logo">
+            </a>
+        </div>
+        <div class="main-nav two four">
+            <div class="container-fluid">
+                <nav class="navbar navbar-expand-md navbar-light">
+                    <a class="navbar-brand" href="{% url 'index' %}">
+                        <img src="{% static 'assets/images/logo.png' %}" alt="Logo">
+                    </a>
+                    <div class="collapse navbar-collapse mean-menu">
+                        <ul class="navbar-nav">
+                            <li class="nav-item"><a href="{% url 'index' %}" class="nav-link">HOME</a></li>
+                            <li class="nav-item"><a href="{% url 'analysis' %}" class="nav-link">SKIN ANALYSIS</a></li>
+                            <li class="nav-item"><a href="{% url 'routines' %}" class="nav-link">MY ROUTINES</a></li>
+                            <li class="nav-item"><a href="{% url 'progress' %}" class="nav-link">PROGRESS</a></li>
+                            <li class="nav-item"><a href="{% url 'shop' %}" class="nav-link">SKINCARE PRODUCTS</a></li>
+                            <li class="nav-item"><a href="{% url 'cart' %}" class="nav-link active">CART</a></li>
+                        </ul>
+                        <div class="side-nav two">
+                            {% if user.is_authenticated %}
+                            <a class="common-btn two nav-btn" href="{% url 'profile' %}" style="margin-right: 10px;">
+                                <i class='bx bx-user'></i> PROFILE
+                            </a>
+                            <a class="common-btn nav-btn" href="{% url 'logout' %}">LOGOUT</a>
+                            {% else %}
+                            <a class="common-btn two nav-btn" href="{% url 'sign_in' %}">SIGN IN</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </div>
+
+    <!-- Page Title -->
+    <div class="page-title-wrap">
+        <div class="page-title-area title-img-four">
+            <div class="d-table">
+                <div class="d-table-cell">
+                    <div class="title-content">
+                        <h2>My Cart</h2>
+                        <ul>
+                            <li><a href="{% url 'index' %}">Home</a></li>
+                            <li><span>Cart</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cart Area -->
+    <div class="cart-area ptb-100">
+        <div class="container">
+            
+            {% if messages %}
+            <div class="row">
+                <div class="col-12 mb-4">
+                    {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }} alert-dismissible fade show shadow-sm" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+
+            <div class="cart-wrap">
+                <div class="table-responsive">
+                    <table class="table cart-table text-nowrap">
+                        <thead class="thead-light">
+                            <tr>
+                                <th scope="col" style="width: 45%;">Product</th>
+                                <th scope="col" style="width: 15%;">Price</th>
+                                <th scope="col" style="width: 15%;">Quantity</th>
+                                <th scope="col" style="width: 15%;">Total</th>
+                                <th scope="col" style="width: 10%;">Remove</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in cart.cartitem_set.all %}
+                            <tr>
+                                <td class="product-name align-middle">
+                                    <div class="d-flex align-items-center">
+                                        <div class="product-img mr-3" style="width: 70px; height: 70px; flex-shrink: 0; background-color: #f7f7f7; border-radius: 8px; overflow: hidden; display: flex; align-items: center; justify-content: center;">
+                                            {% if item.product.image %}
+                                            <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}" 
+                                                 style="width: 100%; height: 100%; object-fit: contain;"
+                                                 onerror="this.style.display='none'; this.parentNode.innerHTML='<i class=\'bx bx-image\' style=\'font-size: 24px; color: #ccc;\'></i>';">
+                                            {% else %}
+                                            <i class='bx bx-image' style="font-size: 24px; color: #ccc;"></i>
+                                            {% endif %}
+                                        </div>
+                                        <div class="name text-wrap">
+                                            <a href="{% url 'single_product' %}?id={{ item.product.id }}" class="text-dark font-weight-bold d-block">{{ item.product.name }}</a>
+                                            <small class="text-muted">{{ item.product.brand }}</small>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="product-price align-middle">
+                                    <span class="amount text-dark">${{ item.product.price }}</span>
+                                </td>
+                            
+                                <td class="product-quantity align-middle"> 
+                                    <div class="input-counter d-inline-block border rounded bg-white d-flex align-items-center justify-content-center">
+                                        <a href="{% url 'decrease_cart_item' item.id %}" class="btn btn-sm btn-link text-dark py-1 px-2 text-decoration-none">
+                                            <i class='bx bx-minus'></i>
+                                        </a>
+                                     
+                                       <span class="px-2 font-weight-bold d-inline-block text-center border-left border-right bg-light"
+      style="min-width: 35px; line-height: 28px;">
+    {{ item.quantity }}
+</span>
+
+{% if item.quantity < item.product.qty %}
+    <a href="{% url 'increase_cart_item' item.id %}"
+       class="btn btn-sm btn-link text-dark py-1 px-2 text-decoration-none">
+        <i class='bx bx-plus'></i>
+    </a>
+{% else %}
+    <span class="btn btn-sm text-muted py-1 px-2" style="cursor:not-allowed;">
+        <i class='bx bx-plus'></i>
+    </span>
+{% endif %}
+                                    </div>
+                                </td>
+                                <td class="product-subtotal align-middle">
+                                    <span class="subtotal-amount font-weight-bold text-primary">${{ item.get_cost }}</span>
+                                </td>
+                                <td class="product-remove align-middle text-center">
+                                    <a href="{% url 'remove_from_cart' item.id %}" class="btn btn-sm btn-outline-danger border-0 rounded-circle" onclick="return confirm('Remove {{ item.product.name }}?')">
+                                        <i class='bx bx-trash' style="font-size: 1.2rem; line-height: 1;"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="5" class="text-center py-5">
+                                    <div class="empty-cart-state">
+                                        <i class='bx bx-cart' style="font-size: 4rem; color: #e9ecef;"></i>
+                                        <h4 class="mt-3 text-muted font-weight-normal">Your cart is currently empty.</h4>
+                                        <a href="{% url 'shop' %}" class="btn common-btn mt-4 shadow-sm">Start Shopping</a>
+                                    </div>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            {% if cart.get_count > 0 %}
+            <div class="row mt-5">
+                <div class="col-lg-7">
+                     <a href="{% url 'shop' %}" class="btn btn-outline-primary btn-lg rounded-pill px-4">
+                        <i class='bx bx-left-arrow-alt mr-1'></i> Continue Shopping
+                     </a>
+                </div>
+                <div class="col-lg-5">
+                    <div class="cart-calc shadow-sm">
+                        <div class="cart-calc-total">
+                            <h3 class="mb-4">Cart Totals</h3>
+                            <ul class="mb-4 list-unstyled">
+                                <li class="d-flex justify-content-between mb-2">
+                                    Subtotal <span class="font-weight-bold">${{ cart.get_total_price }}</span>
+                                </li>
+                                <li class="d-flex justify-content-between border-top pt-2 mt-2">
+                                    <h5 class="mb-0">Total</h5> <h5 class="mb-0 text-primary">${{ cart.get_total_price }}</h5>
+                                </li>
+                            </ul>
+                            <a href="{% url 'checkout' %}" class="btn common-btn two w-100 btn-lg shadow">
+                                Proceed to Checkout
+                                <i class='bx bx-check-circle ml-2'></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer-area two pt-100 pb-70">
+        <div class="container">
+            <div class="row justify-content-center">
+                 <div class="col-sm-6 col-lg-4">
+                     <div class="footer-item">
+                         <div class="footer-contact">
+                             <h3>Contact Info:</h3>
+                             <ul class="info">
+                                 <li><a href="#">3 Edgar Buildings, George Street, BA1 2FJ</a></li>
+                                 <li><span>Hotline:</span> <a href="tel:9645658765">964-565-8765</a></li>
+                             </ul>
+                         </div>
+                     </div>
+                 </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="{% static 'assets/js/jquery.min.js' %}"></script>
+    <script src="{% static 'assets/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'assets/js/meanmenu.js' %}"></script>
+</body>
+</html>

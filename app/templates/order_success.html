@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="zxx">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Order Success - Jeel</title>
+    <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/meanmenu.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/boxicons.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/responsive.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/theme-dark.css' %}">
+    <style>
+        .success-card {
+            background: #fff;
+            padding: 50px 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.05);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        .success-icon {
+            width: 80px;
+            height: 80px;
+            background: #28a745;
+            color: #fff;
+            font-size: 50px;
+            line-height: 80px;
+            border-radius: 50%;
+            margin: 0 auto 25px;
+            display: inline-block;
+        }
+        .order-summary-list .list-group-item {
+            border-left: none;
+            border-right: none;
+            padding: 15px 0;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <div class="navbar-area sticky-top">
+        <div class="mobile-nav">
+            <a href="{% url 'index' %}" class="logo">
+                <img src="{% static 'assets/images/logo.png' %}" alt="Logo">
+            </a>
+        </div>
+        <div class="main-nav two four">
+            <div class="container-fluid">
+                <nav class="navbar navbar-expand-md navbar-light">
+                    <a class="navbar-brand" href="{% url 'index' %}">
+                        <img src="{% static 'assets/images/logo.png' %}" alt="Logo">
+                    </a>
+                    <div class="collapse navbar-collapse mean-menu">
+                        <ul class="navbar-nav">
+                            <li class="nav-item"><a href="{% url 'index' %}" class="nav-link">HOME</a></li>
+                            <li class="nav-item"><a href="{% url 'shop' %}" class="nav-link">SKINCARE PRODUCTS</a></li>
+                            <li class="nav-item"><a href="{% url 'cart' %}" class="nav-link">CART</a></li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </div>
+
+    <div class="ptb-100 bg-light min-vh-100">
+        <div class="container text-center">
+            <div class="success-card shadow-lg">
+                <div class="success-icon animate__animated animate__bounceIn">
+                    <i class='bx bx-check'></i>
+                </div>
+                <h2 class="font-weight-bold mb-2">Order Confirmed!</h2>
+                <p class="text-muted lead mb-4">Thank you for your purchase, {{ order.full_name }}.<br>We've received your order and it's being processed.</p>
+                
+                <div class="order-id-badge bg-light p-2 rounded d-inline-block mb-5">
+                    <span class="text-muted">Order ID:</span> <strong>#{{ order.id }}</strong>
+                </div>
+
+                <div class="text-left">
+                    <h5 class="mb-4 border-bottom pb-2">Order Summary</h5>
+                    <ul class="list-group list-group-flush order-summary-list mb-4">
+                        {% for item in order.items.all %}
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <div>
+                                <h6 class="mb-0">{{ item.product.name }}</h6>
+                                <small class="text-muted">Quantity: {{ item.quantity }}</small>
+                            </div>
+                            <span class="font-weight-bold">${{ item.get_cost }}</span>
+                        </li>
+                        {% endfor %}
+                        <li class="list-group-item d-flex justify-content-between mt-3">
+                            <h5 class="mb-0">Total Amount</h5>
+                            <h5 class="mb-0 text-primary">${{ order.total_amount }}</h5>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="mt-5">
+                    <a href="{% url 'shop' %}" class="common-btn two btn-lg px-5">Continue Shopping</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{% static 'assets/js/jquery.min.js' %}"></script>
+    <script src="{% static 'assets/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'assets/js/meanmenu.min.js' %}"></script>
+</body>
+</html>

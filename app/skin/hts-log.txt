@@ -1,0 +1,23 @@
+HTTrack3.49-2+htsswf+htsjava launched on Wed, 04 Feb 2026 15:09:23 at https://templates.hibootstrap.com/jeel/default/index-2.html +*.png +*.gif +*.jpg +*.jpeg +*.css +*.js -ad.doubleclick.net/* -mime:application/foobar
+(winhttrack -qiC2%Ps2u1%s%uN0%I0p3DaK0H0%kf2A25000%f#f -F "Mozilla/4.5 (compatible; HTTrack 3.0x; Windows 98)" -%F "<!-- Mirrored from %s%s by HTTrack Website Copier/3.x [XR&CO'2014], %s -->" -%l "en, *" https://templates.hibootstrap.com/jeel/default/index-2.html -O1 "C:\Users\INDRUZ\Downloads\skin" +*.png +*.gif +*.jpg +*.jpeg +*.css +*.js -ad.doubleclick.net/* -mime:application/foobar )
+
+Information, Warnings and Errors reported for this mirror:
+note:	the hts-log.txt file, and hts-cache folder, may contain sensitive information,
+	such as username/password authentication for websites mirrored in this project
+	do not share these files/folders if you want these information to remain private
+
+15:11:23	Error: 	"Not Found" (404) at link https://templates.hibootstrap.com/jeel/default/assets/css/owl.video.play.png (from https://templates.hibootstrap.com/jeel/default/assets/css/owl.carousel.min.css)
+15:11:23	Error: 	"Not Found" (404) at link https://templates.hibootstrap.com/jeel/default/assets/fonts/revicons.eot?5510888 (from https://templates.hibootstrap.com/jeel/default/assets/css/settings.css)
+15:11:23	Error: 	"Not Found" (404) at link https://templates.hibootstrap.com/jeel/default/assets/fonts/revicons.woff?5510888 (from https://templates.hibootstrap.com/jeel/default/assets/css/settings.css)
+15:11:23	Error: 	"Not Found" (404) at link https://templates.hibootstrap.com/jeel/default/assets/fonts/revicons.ttf?5510888 (from https://templates.hibootstrap.com/jeel/default/assets/css/settings.css)
+15:11:23	Error: 	"Not Found" (404) at link https://templates.hibootstrap.com/jeel/default/assets/fonts/revicons.svg?5510888 (from https://templates.hibootstrap.com/jeel/default/assets/css/settings.css)
+15:11:23	Error: 	"Not Found" (404) at link https://templates.hibootstrap.com/jeel/default/assets/css/openhand.cur (from https://templates.hibootstrap.com/jeel/default/assets/css/settings.css)
+15:11:23	Error: 	"Not Found" (404) at link https://templates.hibootstrap.com/jeel/default/assets/css/closedhand.cur (from https://templates.hibootstrap.com/jeel/default/assets/css/settings.css)
+15:11:23	Error: 	"Not Found" (404) at link https://templates.hibootstrap.com/jeel/default/assets/assets/gridtile.png (from https://templates.hibootstrap.com/jeel/default/assets/css/settings.css)
+15:11:23	Error: 	"Not Found" (404) at link https://templates.hibootstrap.com/jeel/default/assets/assets/gridtile_white.png (from https://templates.hibootstrap.com/jeel/default/assets/css/settings.css)
+15:11:23	Error: 	"Not Found" (404) at link https://templates.hibootstrap.com/jeel/default/assets/assets/gridtile_3x3.png (from https://templates.hibootstrap.com/jeel/default/assets/css/settings.css)
+15:11:23	Error: 	"Not Found" (404) at link https://templates.hibootstrap.com/jeel/default/assets/assets/gridtile_3x3_white.png (from https://templates.hibootstrap.com/jeel/default/assets/css/settings.css)
+15:11:23	Error: 	"Not Found" (404) at link https://templates.hibootstrap.com/jeel/default/assets/assets/coloredbg.png (from https://templates.hibootstrap.com/jeel/default/assets/css/settings.css)
+
+HTTrack Website Copier/3.49-2 mirror complete in 2 minutes 0 seconds : 246 links scanned, 233 files written (16205091 bytes overall), 233 files updated [13661900 bytes received at 113849 bytes/sec], 3876811 bytes transferred using HTTP compression in 80 files, ratio 29%, 61.5 requests per connection
+(12 errors, 0 warnings, 0 messages)

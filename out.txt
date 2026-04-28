@@ -1,0 +1,9 @@
+
+Starting Skin Analysis Validation...
+Image                     | Result     | Acne  | Oil   | Wrnk  | Hydra
+---------------------------------------------------------------------------
+acne.png                  | NO FACE (Forced) | 100   | 36    | 55    | 53   
+oily.png                  | OK               | 28    | 29    | 42    | 57   
+wrinkles.png              | NO FACE (Forced) | 100   | 86    | 100   | 45   
+normal.png                | NO FACE (Forced) | 99    | 35    | 34    | 63   
+5_no_face_noise.jpg       | PASSED (Expected Fail: No face detected. Please ensure your face is clearly visible.)

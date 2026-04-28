@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html lang="zxx">
+{% load static %}
+    
+<!-- Mirrored from templates.hibootstrap.com/jeel/default/index-2.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 04 Feb 2026 09:39:24 GMT -->
+<head>
+        <!--=== Meta Tags ===-->
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!--=== Link of CSS ===-->
+        <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}">
+        <link rel="stylesheet" href="{% static 'assets/css/boxicons.min.css' %}">
+        <link rel="stylesheet" href="{% static 'assets/css/meanmenu.css' %}">
+        <link rel="stylesheet" href="{% static 'assets/css/animate.min.css' %}">
+        <link rel="stylesheet" href="{% static 'assets/css/owl.carousel.min.css' %}">
+        <link rel="stylesheet" href="{% static 'assets/css/owl.theme.default.min.css' %}">
+        <link rel="stylesheet" href="{% static 'assets/css/modal-video.min.css' %}">
+        <link rel="stylesheet" href="{% static 'assets/css/odometer.min.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'assets/css/settings.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'assets/css/layers.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'assets/css/navigation.css' %}">
+        <link rel="stylesheet" href="{% static 'assets/css/nice-select.min.css' %}">
+        <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+        <link rel="stylesheet" href="{% static 'assets/css/responsive.css' %}">
+        <link rel="stylesheet" href="{% static 'assets/css/theme-dark.css' %}">
+
+        <!--=== Title & Favicon ===-->
+        <title>Jeel - AI-Powered Skincare Analysis & Personalized Routines</title>
+        <link rel="icon" type="image/png" href="{% static 'assets/images/favicon.png' %}">
+    </head>
+    <body>
+        <!-- Preloader -->
+        <div class="loader">
+            <div class="d-table">
+                <div class="d-table-cell">
+                    <div class="loading">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Preloader -->
+
+        <!-- Navbar -->
+        <div class="navbar-area sticky-top"> 
+            <!-- Menu For Mobile Device -->
+            <div class="mobile-nav">
+                <a href="{% url 'index' %}" class="logo">
+                    <img src="{% static 'assets/images/logo.png' %}" alt="Logo">
+                </a>
+            </div>
+
+            <!-- Menu For Desktop Device -->
+            <div class="main-nav two">
+                <div class="container-fluid">
+                    <nav class="navbar navbar-expand-md navbar-light">
+                        <a class="navbar-brand" href="{% url 'index' %}">
+                            <img src="{% static 'assets/images/logo.png' %}" alt="Logo">
+                        </a>
+                        <div class="collapse navbar-collapse mean-menu" id="navbarSupportedContent">
+                            <ul class="navbar-nav">
+                                <li class="nav-item">
+                                    <a href="{% url 'index' %}" class="nav-link active">HOME</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{% url 'analysis' %}" class="nav-link">SKIN ANALYSIS</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{% url 'routines' %}" class="nav-link">MY ROUTINES</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{% url 'progress' %}" class="nav-link">PROGRESS</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{% url 'scan_history' %}" class="nav-link">ANALYSIS HISTORY</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{% url 'shop' %}" class="nav-link">SKINCARE PRODUCTS</a>
+                                </li>
+                            </ul>
+
+                            <div class="side-nav two">
+                                {% if user.is_authenticated %}
+                                <a class="common-btn two nav-btn" href="{% url 'profile' %}" style="margin-right: 10px;">
+                                    <i class='bx bx-user'></i> PROFILE
+                                </a>
+                                <a class="common-btn nav-btn" href="{% url 'logout' %}">LOGOUT</a>
+                                {% else %}
+                                <a class="common-btn two nav-btn" href="{% url 'sign_in' %}">SIGN IN</a>
+                                {% endif %}
+                            </div>
+
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+        <!-- End Navbar -->
+
+        {% if messages %}
+        <div class="container mt-3">
+            {% for message in messages %}
+                <div class="alert alert-{% if message.tags == 'error' %}danger{% else %}{{ message.tags }}{% endif %} alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        <!-- Banner -->
+        <div class="banner-area two banner-img-two">
+            <div class="banner-shape-two">
+                <img src="{% static 'assets/images/banner/banner-shape6.png' %}" alt="Shape">
+                <img src="{% static 'assets/images/banner/banner-shape2.png' %}" alt="Shape">
+                <img src="{% static 'assets/images/banner/banner-shape7.png' %}" alt="Shape">
+                <img src="{% static 'assets/images/banner/banner-shape8.png' %}" alt="Shape">
+                <img src="{% static 'assets/images/banner/banner-shape9.png' %}" alt="Shape">
+                <img src="{% static 'assets/images/banner/banner-shape10.png' %}" alt="Shape">
+                <img src="{% static 'assets/images/banner/banner-shape11.png' %}" alt="Shape">
+            </div>
+            <div class="d-table">
+                <div class="d-table-cell">
+                    <div class="container-fluid">
+
+                        <div class="banner-content">
+                            <h1 class="wow fadeInUp">Reveal Your Best Skin with AI</h1>
+                             <p class="wow fadeInUp" data-wow-delay=".3s" style="color: grey; font-size: 1.5rem; margin-bottom: 30px;">
+                                Get medical-grade skin analysis and personalized routines powered by advanced artificial intelligence.
+                            </p>
+                            <div class="banner-btn-area">
+                                <a class="common-btn two" href="{% url 'analysis' %}">Analyze My Skin Now</a>
+                                <a class="common-btn two banner-btn" href="#">About Us</a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Banner -->
+
+        <!-- Services -->
+        <section class="services-area two ptb-100">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Smart Skincare Solutions</h2>
+                    <p>Experience the future of beauty with our AI-driven features designed to understand your unique skin needs and provide actionable results.</p>
+                </div>
+                <div class="row">
+
+                    <div class="col-sm-6 col-lg-3">
+                        <div class="services-item">
+                            <div class="inner">
+                                <img src="{% static 'assets/images/services/services1.jpg' %}" alt="Services">
+                                <h3>
+                                    <a href="{% url 'analysis' %}">AI Skin Analysis</a>
+                                </h3>
+                                <p>Instant scanning technology to detect acne, wrinkles, and dark spots with high precision.</p>
+                                <a class="services-btn" href="#">View More</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6 col-lg-3">
+                        <div class="services-item">
+                            <div class="inner">
+                                <img src="{% static 'assets/images/services/services2.jpg' %}" alt="Services">
+                                <h3>
+                                    <a href="{% url 'routines' %}">Custom Routines</a>
+                                </h3>
+                                <p>Step-by-step skincare plans tailored to your specific skin type and environmental factors.</p>
+                                <a class="services-btn" href="#">View More</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6 col-lg-3">
+                        <div class="services-item">
+                            <div class="inner">
+                                <img src="{% static 'assets/images/services/services3.jpg' %}" alt="Services">
+                                <h3>
+                                    <a href="{% url 'progress' %}">Progress Tracking</a>
+                                </h3>
+                                <p>Visualize your skin's transformation over time with our intuitive progress logging system.</p>
+                                <a class="services-btn" href="#">View More</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6 col-lg-3">
+                        <div class="services-item">
+                            <div class="inner">
+                                <img src="{% static 'assets/images/services/services4.jpg' %}" alt="Services">
+                                <h3>
+                                    <a href="{% url 'shop' %}">Verified Products</a>
+                                </h3>
+                                <p>Shop a curated selection of dermatologist-approved products matched to your analysis.</p>
+                                <a class="services-btn" href="#">View More</a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="text-center">
+                    <a class="common-btn two" href="#">View All Services</a>
+                </div>
+
+            </div>
+        </section>
+        <!-- End Services -->
+
+        <!-- Know -->
+        <div class="know-area pt-100 pb-70">
+            <div class="know-shape">
+                <img src="{% static 'assets/images/know/know-shape3.png' %}" alt="Shape">
+                <img src="{% static 'assets/images/know/know-shape4.png' %}" alt="Shape">
+                <img src="{% static 'assets/images/know/know-shape2.png' %}" alt="Shape">
+            </div>
+            <div class="container-fluid">
+                <div class="row align-items-center">
+
+                    <div class="col-lg-6">
+                        <div class="know-img">
+                            <img src="{% static 'assets/images/know/know-bg1.jpg' %}" alt="Know">
+                            <img src="{% static 'assets/images/know/know-shape1.png' %}" alt="Shape">
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="know-content">
+                            <div class="section-title">
+                                <h2>Innovating Your Glow</h2>
+                                <p>At Jeel, we believe that everyone deserves clear, healthy skin. Our platform combines clinical expertise with deep learning to democratize expert skincare advice.</p>
+                            </div>
+                            <ul>
+                                <li>
+                                    <img src="{% static 'assets/images/know/know-icon1.png' %}" alt="Know">
+                                    <h3>Science-Backed Data</h3>
+                                    <p>Our algorithms are trained on thousands of clinical images to ensure accurate and reliable analysis.</p>
+                                </li>
+                                <li>
+                                    <img src="{% static 'assets/images/know/know-icon2.png' %}" alt="Know">
+                                    <h3>Personalized for You</h3>
+                                    <p>No more guessing games. Get advice that is specific to your skin's current state and goals.</p>
+                                </li>
+                                <li>
+                                    <img src="{% static 'assets/images/know/know-icon3.png' %}" alt="Know">
+                                    <h3>Trusted by Experts</h3>
+                                    <p>We work with leading dermatologists to verify our recommendations and product selections.</p>
+                                </li>
+                            </ul>
+                            <a class="common-btn two" href="#">About Us</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!-- End Know -->
+
+        <!-- Skin -->
+        <section class="skin-area two pt-100 pb-70">
+            <div class="skin-shape">
+                <img src="{% static 'assets/images/skin-shape2.png' %}" alt="Shape">
+            </div>
+            <div class="container-fluid">
+                <div class="row align-items-center">
+
+                    <div class="col-lg-6">  
+                        <div class="skin-content">
+                            <div class="section-title">
+                                <h2>Curated Skincare for Your Needs</h2>
+                                <p>Don't just buy what's popular. Shop for what works for you. Our shop features products that are high-potency, clean, and effective.</p>
+                                <p>From gentle cleansers to powerful retinoids, every item in our store is selected to support the routines suggested by our AI analysis.</p>
+                            </div>
+                            <a class="common-btn two" href="shop.html">Shop Now</a>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="skin-img">
+                            <img src="{% static 'assets/images/skin-main.jpg' %}" alt="Skin">
+                            <img src="{% static 'assets/images/skin-shape1.png' %}" alt="Shape">
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+        <!-- End Skin -->
+
+        <!-- Get -->
+        <section class="get-area two">
+            <div class="container">
+                <div class="get-content">
+                    <div class="get-shape">
+                        <img src="{% static 'assets/images/get-shape1.png' %}" alt="Shape">
+                        <img src="{% static 'assets/images/get-shape2.png' %}" alt="Shape">
+                    </div>
+                    <div class="section-title">
+                        <h2>Take Control of Your Skin Journey Today</h2>
+                    </div>
+                    <a class="common-btn two" href="#">Make An Appointment</a>
+                </div>
+            </div>
+        </section>
+        <!-- End Get -->
+
+        <!--=== Team ===-->
+        <section class="team-area ptb-100">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Our Skincare Experts</h2>
+                    <p>Learn from a team that brings together the best of dermatology and data science to give you the most accurate skin advice.</p>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-sm-6 col-lg-4">
+                        <div class="team-item">
+                            <div class="top">
+                                <img src="{% static 'assets/images/team/team1.jpg' %}" alt="Team">
+                                <img src="{% static 'assets/images/team/team-bg.png' %}" alt="Shape">
+                                <ul>
+                                    <li>
+                                        <a href="https://www.facebook.com/" target="_blank">
+                                            <i class='bx bxl-facebook'></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="https://www.twitter.com/" target="_blank">
+                                            <i class='bx bxl-twitter'></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="https://www.linkedin.com/" target="_blank">
+                                            <i class='bx bxl-linkedin'></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="bottom">
+                                <h3>Dr. Sarah Chen</h3>
+                                <span>Chief Dermatologist</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6 col-lg-4">
+                        <div class="team-item">
+                            <div class="top">
+                                <img src="{% static 'assets/images/team/team2.jpg' %}" alt="Team">
+                                <img src="{% static 'assets/images/team/team-bg.png' %}" alt="Shape">
+                                <ul>
+                                    <li>
+                                        <a href="https://www.facebook.com/" target="_blank">
+                                            <i class='bx bxl-facebook'></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="https://www.twitter.com/" target="_blank">
+                                            <i class='bx bxl-twitter'></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="https://www.linkedin.com/" target="_blank">
+                                            <i class='bx bxl-linkedin'></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="bottom">
+                                <h3>James Miller</h3>
+                                <span>AI Research Lead</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6 col-lg-4">
+                        <div class="team-item">
+                            <div class="top">
+                                <img src="{% static 'assets/images/team/team3.jpg' %}" alt="Team">
+                                <img src="{% static 'assets/images/team/team-bg.png' %}" alt="Shape">
+                                <ul>
+                                    <li>
+                                        <a href="https://www.facebook.com/" target="_blank">
+                                            <i class='bx bxl-facebook'></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="https://www.twitter.com/" target="_blank">
+                                            <i class='bx bxl-twitter'></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="https://www.linkedin.com/" target="_blank">
+                                            <i class='bx bxl-linkedin'></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="bottom">
+                                <h3>Elena Rodriguez</h3>
+                                <span>Product Formulation Expert</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <a class="common-btn two" href="#">View All Members</a>
+                </div>
+            </div>
+        </section>
+        <!--=== End Team ===-->
+
+        <!-- Reviews -->
+        <div class="reviews-area two ptb-100">
+            <div class="reviews-top-bottom-shape">
+                <img src="{% static 'assets/images/reviews/review-shape3.png' %}" alt="Shape">
+                <img src="{% static 'assets/images/reviews/review-shape4.png' %}" alt="Shape">
+            </div>
+            <div class="container">
+                <div class="row align-items-center">
+
+                    <div class="col-lg-12">
+                        <div class="section-title">
+                            <h2>Reviews From Our Clients</h2>
+                        </div>
+                        <div class="tab-content" id="v-pills-tabContent">
+                            <div class="reviews-shape">
+                                <img src="{% static 'assets/images/reviews/reviews-shape1.png' %}" alt="Shape">
+                                <img src="{% static 'assets/images/reviews/reviews-shape2.png' %}" alt="Shape">
+                            </div>
+                            <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+                                <div class="review-content">
+                                    <i class='bx bxs-quote-alt-right icon'></i>
+                                    <p>"The AI analysis was spot on! It identified my redness issues before I even mentioned them. My new routine has cleared my skin in just 3 weeks."</p>
+                                    <h3>4.8</h3>
+                                    <ul>
+                                        <li>
+                                            <i class='bx bxs-star checked'></i>
+                                        </li>
+                                        <li>
+                                            <i class='bx bxs-star checked'></i>
+                                        </li>
+                                        <li>
+                                            <i class='bx bxs-star checked'></i>
+                                        </li>
+                                        <li>
+                                            <i class='bx bxs-star checked'></i>
+                                        </li>
+                                        <li>
+                                            <i class='bx bxs-star checked'></i>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+                                <div class="review-content">
+                                    <i class='bx bxs-quote-alt-right icon'></i>
+                                    <p>"Finally, a skincare platform that doesn't just push expensive products. Jeel focuses on what my skin actually needs. Highly recommended!"</p>
+                                    <h3>4.5</h3>
+                                    <ul>
+                                        <li>
+                                            <i class='bx bxs-star checked'></i>
+                                        </li>
+                                        <li>
+                                            <i class='bx bxs-star checked'></i>
+                                        </li>
+                                        <li>
+                                            <i class='bx bxs-star checked'></i>
+                                        </li>
+                                        <li>
+                                            <i class='bx bxs-star checked'></i>
+                                        </li>
+                                        <li>
+                                            <i class='bx bxs-star checked'></i>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
+                                <div class="review-content">
+                                    <i class='bx bxs-quote-alt-right icon'></i>
+                                    <p>"I love the progress tracking. Being able to see how my skin texture has improved over the months keeps me motivated with my routine."</p>
+                                    <h3>4.6</h3>
+                                    <ul>
+                                        <li>
+                                            <i class='bx bxs-star checked'></i>
+                                        </li>
+                                        <li>
+                                            <i class='bx bxs-star checked'></i>
+                                        </li>
+                                        <li>
+                                            <i class='bx bxs-star checked'></i>
+                                        </li>
+                                        <li>
+                                            <i class='bx bxs-star checked'></i>
+                                        </li>
+                                        <li>
+                                            <i class='bx bxs-star checked'></i>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">
+                                <div class="review-content">
+                                    <i class='bx bxs-quote-alt-right icon'></i>
+                                    <p>"The routine builder is so easy to use. I can swap products and it updates my schedule automatically. My skin has never looked better."</p>
+                                    <h3>4.2</h3>
+                                    <ul>
+                                        <li>
+                                            <i class='bx bxs-star checked'></i>
+                                        </li>
+                                        <li>
+                                            <i class='bx bxs-star checked'></i>
+                                        </li>
+                                        <li>
+                                            <i class='bx bxs-star checked'></i>
+                                        </li>
+                                        <li>
+                                            <i class='bx bxs-star checked'></i>
+                                        </li>
+                                        <li>
+                                            <i class='bx bxs-star checked'></i>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="v-pills-reviewone" role="tabpanel" aria-labelledby="v-pills-reviewone-tab">
+                                <div class="review-content">
+                                    <i class='bx bxs-quote-alt-right icon'></i>
+                                    <p>"The product recommendations are really well-thought-out. It found great options for my sensitive skin that I wouldn't have found on my own."</p>
+                                    <h3>4.2</h3>
+                                    <ul>
+                                        <li>
+                                            <i class='bx bxs-star checked'></i>
+                                        </li>
+                                        <li>
+                                            <i class='bx bxs-star checked'></i>
+                                        </li>
+                                        <li>
+                                            <i class='bx bxs-star checked'></i>
+                                        </li>
+                                        <li>
+                                            <i class='bx bxs-star checked'></i>
+                                        </li>
+                                        <li>
+                                            <i class='bx bxs-star checked'></i>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12">
+                        <div class="nav nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                            <a class="nav-link active" id="v-pills-home-tab" data-bs-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">
+                                <div class="reviews-img">
+                                    <img src="{% static 'assets/images/reviews/reviews1.jpg' %}" alt="Reviews">
+                                    <h3>Angela</h3>
+                                    <span>Director</span>
+                                </div>
+                            </a>
+                            <a class="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">
+                                <div class="reviews-img">
+                                    <img src="{% static 'assets/images/reviews/reviews2.jpg' %}" alt="Reviews">
+                                    <h3>Margaret</h3>
+                                    <span>Reporter</span>
+                                </div>
+                            </a>
+                            <a class="nav-link" id="v-pills-messages-tab" data-bs-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">
+                                <div class="reviews-img">
+                                    <img src="{% static 'assets/images/reviews/reviews3.jpg' %}" alt="Reviews">
+                                    <h3>Lucy</h3>
+                                    <span>Model</span>
+                                </div>
+                            </a>
+                            <a class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">
+                                <div class="reviews-img">
+                                    <img src="{% static 'assets/images/reviews/reviews4.jpg' %}" alt="Reviews">
+                                    <h3>Henry</h3>
+                                    <span>Shop Owner</span>
+                                </div>
+                            </a>
+                            <a class="nav-link" id="v-pills-reviewone-tab" data-bs-toggle="pill" href="#v-pills-reviewone" role="tab" aria-controls="v-pills-reviewone" aria-selected="false">
+                                <div class="reviews-img">
+                                    <img src="{% static 'assets/images/reviews/reviews5.jpg' %}" alt="Reviews">
+                                    <h3>Tom</h3>
+                                    <span>Beautician</span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!-- End Reviews -->
+
+        <!--=== Shop ===-->
+        <section class="shop-area ptb-100">
+            <div class="shop-shape">
+                <img src="{% static 'assets/images/shop/shop-shape1.png' %}" alt="Shape">
+                <img src="{% static 'assets/images/shop/shop-shape2.png' %}" alt="Shape">
+            </div>
+            <div class="container">
+                <div class="section-title">
+                    <h2>Our Organic Skincare Collection</h2>
+                    <p>Explore a range of clean, effective, and ethically sourced products designed to work in harmony with our AI-driven routines.</p>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-sm-6 col-lg-4">
+                        <div class="shop-item">
+                            <div class="top">
+                                <img src="{% static 'assets/images/shop/shop1.jpg' %}" alt="Shop">
+                                <ul>
+                                    <li>
+                                        <a href="{% url 'cart' %}" target="_blank">
+                                            <i class="bx bx-cart"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" target="_blank">
+                                            <i class='bx bxs-heart'></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="bottom">
+                                <h3>
+                                    <a href="#">Organic Face Cream</a>
+                                </h3>
+                                <span>$150.00</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6 col-lg-4">
+                        <div class="shop-item">
+                            <div class="top">
+                                <img src="{% static 'assets/images/shop/shop2.jpg' %}" alt="Shop">
+                                <ul>
+                                    <li>
+                                        <a href="{% url 'cart' %}" target="_blank">
+                                            <i class="bx bx-cart"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" target="_blank">
+                                            <i class='bx bxs-heart'></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="bottom">
+                                <h3>
+                                    <a href="#">Organic Body Lotion</a>
+                                </h3>
+                                <span>$125.00</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6 col-lg-4">
+                        <div class="shop-item">
+                            <div class="top">
+                                <img src="{% static 'assets/images/shop/shop3.jpg' %}" alt="Shop">
+                                <ul>
+                                    <li>
+                                        <a href="{% url 'cart' %}" target="_blank">
+                                            <i class="bx bx-cart"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" target="_blank">
+                                            <i class='bx bxs-heart'></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="bottom">
+                                <h3>
+                                    <a href="#">Organic Body Oil</a>
+                                </h3>
+                                <span>$135.00</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center">
+                    <a class="common-btn two" href="shop.html">View All Products</a>
+                </div>
+            </div>
+        </section>
+        <!--=== End Shop ===-->
+
+        <!--=== Blog ===-->
+
+
+        <!--=== Footer ===-->
+        <footer class="footer-area two pt-100 pb-70">
+            <div class="footer-shape">
+                <img src="{% static 'assets/images/footer-shape1.png' %}" alt="Shape">
+            </div>
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-sm-6 col-lg-4">
+                        <div class="footer-item">
+                            <div class="footer-contact">
+                                <h3>Contact Info:</h3>
+                                <ul class="info">
+                                    <li>
+                                        <a href="#">3 Edgar Buildings, George Street, BA1 2FJ</a>
+                                    </li>
+                                    <li>
+                                        <span>Hotline:</span>
+                                        <a href="tel:9645658765">964-565-8765</a>
+                                    </li>
+                                    <li>
+                                        <span>Hotline:</span>
+                                        <a href="tel:5464169576">546-416-9576</a>
+                                    </li>
+                                    <li>
+                                        <span>Email:</span>
+                                        <a href="mailto:support@jeelskin.ai">support@jeelskin.ai</a>
+                                    </li>
+                                    <li>
+                                        <span>Email:</span>
+                                        <a href="mailto:info@jeelskin.ai">info@jeelskin.ai</a>
+                                    </li>
+                                </ul>
+                                <ul class="social">
+                                    <li>
+                                        <a href="https://www.facebook.com/" target="_blank">
+                                            <i class='bx bxl-facebook'></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="https://www.twitter.com/" target="_blank">
+                                            <i class='bx bxl-twitter'></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="https://www.pinterest.com/" target="_blank">
+                                            <i class='bx bxl-pinterest-alt'></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="https://www.linkedin.com/" target="_blank">
+                                            <i class='bx bxl-linkedin'></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="https://www.youtube.com/" target="_blank">
+                                            <i class='bx bxl-youtube'></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6 col-lg-4">
+                        <div class="footer-item">
+                            <div class="footer-img">
+                                <a href="{% url 'index' %}">
+                                    <img src="{% static 'assets/images/logo-two.png' %}" alt="Footer">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6 col-lg-4">
+                        <div class="footer-item">
+                            <h3>Open Hours:</h3>
+                            <div class="footer-hours">
+                                <div class="left">
+                                    <ul>
+                                        <li>Saturday:</li>
+                                        <li>Sunday:</li>
+                                        <li>Monday:</li>
+                                        <li>Tuesday:</li>
+                                        <li>Wednesday:</li>
+                                        <li>Thursday:</li>
+                                    </ul>
+                                </div>
+                                <div class="right">
+                                    <ul>
+                                        <li>
+                                            08:00
+                                            <span>23:00</span>
+                                        </li>
+                                        <li>
+                                            08:00
+                                            <span>23:00</span>
+                                        </li>
+                                        <li>
+                                            08:00
+                                            <span>21:00</span>
+                                        </li>
+                                        <li>
+                                            09:00
+                                            <span>23:00</span>
+                                        </li>
+                                        <li>
+                                            09:00
+                                            <span>23:00</span>
+                                        </li>
+                                        <li>
+                                            09:00
+                                            <span>23:00</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!--=== End Footer ===-->
+
+        <!--=== Copyright ===-->
+        <div class="copyright-area two">
+            <div class="container">
+                <div class="copyright-item">
+                    <p>Copyright @<script>document.write(new Date().getFullYear())</script> Jeel. Powered by AI Skincare Solutions.</p>
+                </div>
+            </div>
+        </div>
+        <!--=== End Copyright ===-->
+
+        <!-- Go Top -->
+        <div class="go-top">
+            <i class='bx bxs-up-arrow-alt'></i>
+            <i class='bx bxs-up-arrow-alt'></i>
+        </div>
+        <!-- End Go Top -->
+
+        <!--=== Essential JS ===-->
+        <script src="{% static 'assets/js/jquery.min.js' %}"></script>
+        <script src="{% static 'assets/js/bootstrap.bundle.min.js' %}"></script>
+        <script src="{% static 'assets/js/form-validator.min.js' %}"></script>
+        <script src="{% static 'assets/js/contact-form-script.js' %}"></script>
+        <script src="{% static 'assets/js/jquery.ajaxchimp.min.js' %}"></script>
+        <script src="{% static 'assets/js/jquery.meanmenu.js' %}"></script>
+        <script src="{% static 'assets/js/wow.min.js' %}"></script>
+        <script src="{% static 'assets/js/owl.carousel.min.js' %}"></script>
+        <script src="{% static 'assets/js/jquery-modal-video.min.js' %}"></script>
+        <script src="{% static 'assets/js/odometer.min.js' %}"></script>
+        <script src="{% static 'assets/js/jquery.appear.min.js' %}"></script>
+		<script src="{% static 'assets/js/jquery.themepunch.tools.min.js' %}"></script>
+		<script src="{% static 'assets/js/jquery.themepunch.revolution.min.js' %}"></script>
+		<script src="{% static 'assets/js/extensions/revolution.extension.actions.min.js' %}"></script>
+		<script src="{% static 'assets/js/extensions/revolution.extension.carousel.min.js' %}"></script>
+		<script src="{% static 'assets/js/extensions/revolution.extension.kenburn.min.js' %}"></script>
+		<script src="{% static 'assets/js/extensions/revolution.extension.layeranimation.min.js' %}"></script>
+		<script src="{% static 'assets/js/extensions/revolution.extension.migration.min.js' %}"></script>
+		<script src="{% static 'assets/js/extensions/revolution.extension.navigation.min.js' %}"></script>
+		<script src="{% static 'assets/js/extensions/revolution.extension.parallax.min.js' %}"></script>
+		<script src="{% static 'assets/js/extensions/revolution.extension.slideanims.min.js' %}"></script>
+        <script src="{% static 'assets/js/extensions/revolution.extension.video.min.js' %}"></script>
+        <script src="{% static 'assets/js/jquery.nice-select.min.js' %}"></script>
+        <script src="{% static 'assets/js/custom.js' %}"></script>
+    </body>
+
+<!-- Mirrored from templates.hibootstrap.com/jeel/default/index-2.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 04 Feb 2026 09:39:27 GMT -->
+</html>

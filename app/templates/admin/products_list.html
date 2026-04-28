@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="zxx">
+{% load static %}
+<head>
+    <!--=== Meta Tags ===-->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--=== Link of CSS ===-->
+    <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/boxicons.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/meanmenu.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/animate.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/responsive.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/theme-dark.css' %}">
+
+    <!--=== Title & Favicon ===-->
+    <title>Manage Products - Admin Panel</title>
+    <link rel="icon" type="image/png" href="{% static 'assets/images/favicon.png' %}">
+    
+    <style>
+        .product-img-thumb {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+        .admin-badge {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <div class="navbar-area sticky-top"> 
+        <div class="mobile-nav">
+            <a href="{% url 'admin_dashboard' %}" class="logo">
+                <img src="{% static 'assets/images/logo.png' %}" alt="Logo">
+            </a>
+        </div>
+
+        <div class="main-nav two">
+            <div class="container-fluid">
+                <nav class="navbar navbar-expand-md navbar-light">
+                    <a class="navbar-brand" href="{% url 'admin_dashboard' %}">
+                        <img src="{% static 'assets/images/logo.png' %}" alt="Logo">
+                    </a>
+                    <div class="collapse navbar-collapse mean-menu">
+                        <ul class="navbar-nav">
+                            <li class="nav-item"><a href="{% url 'admin_dashboard' %}" class="nav-link">DASHBOARD</a></li>
+                            <li class="nav-item"><a href="{% url 'admin_products_list' %}" class="nav-link active">MANAGE PRODUCTS</a></li>
+                            <li class="nav-item"><a href="{% url 'admin_users_list' %}" class="nav-link">MANAGE USERS</a></li>
+                        </ul>
+                        <div class="side-nav two">
+                            <span class="admin-badge">ADMIN</span>
+                            <a class="common-btn nav-btn" href="{% url 'logout' %}">LOGOUT</a>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </div>
+
+    {% if messages %}
+    <div class="container mt-3">
+        {% for message in messages %}
+        <div class="alert alert-{% if message.tags == 'error' %}danger{% else %}{{ message.tags }}{% endif %} alert-dismissible fade show">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <!-- Page Title -->
+    <div class="page-title-wrap">
+        <div class="page-title-area title-img-six">
+            <div class="title-shape"><img src="{% static 'assets/images/title/title-shape1.png' %}" alt="Shape"></div>
+            <div class="d-table">
+                <div class="d-table-cell">
+                    <div class="title-content">
+                        <h2>Product Management</h2>
+                        <ul>
+                            <li><a href="{% url 'admin_dashboard' %}">Dashboard</a></li>
+                            <li><span>Products</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Products List -->
+    <div class="ptb-100">
+        <div class="container">
+            <div class="row align-items-center mb-4">
+                <div class="col-md-6">
+                    <div class="section-title two">
+                        <span>Manage Inventory</span>
+                        <h2>All Products ({{ products.count }})</h2>
+                    </div>
+                </div>
+                <div class="col-md-6 text-end">
+                    <a href="{% url 'admin_product_add' %}" class="common-btn">
+                        <i class='bx bx-plus-circle'></i> Add New Product
+                    </a>
+                </div>
+            </div>
+
+            {% if products %}
+            <div class="table-responsive">
+                <table class="table table-hover align-middle shadow-sm bg-white">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Image</th>
+                            <th>Name</th>
+                            <th>Qty</th>
+                            <th>Brand</th>
+                            <th>Price</th>
+                            <th>Skin Type</th>
+                            <th>Added</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for product in products %}
+                        <tr>
+                            <td>
+                                {% if product.image %}
+                                <img src="{{ product.image.url }}" alt="{{ product.name }}" class="product-img-thumb">
+                                {% else %}
+                                <div class="product-img-thumb bg-light d-flex align-items-center justify-content-center">
+                                    <i class='bx bx-image text-muted'></i>
+                                </div>
+                                {% endif %}
+                            </td>
+                            <td><strong>{{ product.name }}</strong></td>
+                             <td><strong>{{ product.qty }}</strong></td>
+                            <td>{{ product.brand|default:"—" }}</td>
+                            <td><strong>${{ product.price }}</strong></td>
+                            <td><span class="badge bg-info">{{ product.skin_type_suitability|default:"All" }}</span></td>
+                            <td>{{ product.created_at|date:"M d, Y" }}</td>
+                            <td>
+                                <a href="{% url 'admin_product_edit' product.id %}" class="btn btn-sm btn-primary me-1" title="Edit">
+                                    <i class='bx bx-edit'></i>
+                                </a>
+                                <button onclick="confirmDelete('{{ product.name }}', '{% url 'admin_product_delete' product.id %}')" 
+                                        class="btn btn-sm btn-danger" title="Delete">
+                                    <i class='bx bx-trash'></i>
+                                </button>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% else %}
+            <div class="text-center py-5">
+                <i class='bx bx-package' style="font-size: 80px; color: #ccc;"></i>
+                <h4 class="mt-3">No Products Yet</h4>
+                <p class="text-muted">Start by adding your first product.</p>
+                <a href="{% url 'admin_product_add' %}" class="common-btn mt-3">
+                    <i class='bx bx-plus-circle'></i> Add First Product
+                </a>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Delete Modal -->
+    <div class="modal fade" id="deleteModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Confirm Delete</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    Are you sure you want to delete <strong id="productName"></strong>?
+                    <br><small class="text-danger">This action cannot be undone.</small>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <a href="#" id="deleteConfirmBtn" class="btn btn-danger">Delete</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--=== Footer ===-->
+    <footer class="footer-area two pt-100 pb-70">
+        <div class="footer-shape"><img src="{% static 'assets/images/footer-shape1.png' %}" alt="Shape"></div>
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-sm-6 col-lg-4">
+                    <div class="footer-item">
+                        <div class="footer-contact">
+                            <h3>Contact Info:</h3>
+                            <ul class="info">
+                                <li><a href="#">3 Edgar Buildings, George Street, BA1 2FJ</a></li>
+                                <li><span>Email:</span><a href="mailto:support@lccskincare.com">support@lccskincare.com</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-4">
+                    <div class="footer-item">
+                        <div class="footer-img">
+                            <a href="{% url 'index' %}"><img src="{% static 'assets/images/logo-two.png' %}" alt="Footer"></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-4">
+                    <div class="footer-item">
+                        <div class="footer-find">
+                            <h3>Follow Us:</h3>
+                            <ul>
+                                <li><a href="#" target="_blank"><i class="bx bxl-facebook"></i></a></li>
+                                <li><a href="#" target="_blank"><i class="bx bxl-twitter"></i></a></li>
+                                <li><a href="#" target="_blank"><i class="bx bxl-instagram"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <div class="copyright-area two">
+        <div class="container">
+            <div class="copyright-item"><p>&copy; 2026 LCC Skincare. All Rights Reserved</p></div>
+        </div>
+    </div>
+
+    <div class="go-top">
+        <i class='bx bx-chevrons-up'></i>
+        <i class='bx bx-chevrons-up'></i>
+    </div>
+
+    <script src="{% static 'assets/js/jquery.min.js' %}"></script>
+    <script src="{% static 'assets/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'assets/js/jquery.meanmenu.js' %}"></script>
+    <script src="{% static 'assets/js/wow.min.js' %}"></script>
+    <script src="{% static 'assets/js/custom.js' %}"></script>
+    <script>
+        function confirmDelete(name, url) {
+            document.getElementById('productName').textContent = name;
+            document.getElementById('deleteConfirmBtn').href = url;
+            var modal = new bootstrap.Modal(document.getElementById('deleteModal'));
+            modal.show();
+        }
+    </script>
+</body>
+</html>

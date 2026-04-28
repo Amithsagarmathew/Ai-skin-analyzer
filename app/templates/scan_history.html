@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+    
+<head>
+        <!--=== Meta Tags ===-->
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!--=== Link of CSS ===-->
+        <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}">
+        <link rel="stylesheet" href="{% static 'assets/css/boxicons.min.css' %}">
+        <link rel="stylesheet" href="{% static 'assets/css/meanmenu.css' %}">
+        <link rel="stylesheet" href="{% static 'assets/css/animate.min.css' %}">
+        <link rel="stylesheet" href="{% static 'assets/css/owl.carousel.min.css' %}">
+        <link rel="stylesheet" href="{% static 'assets/css/owl.theme.default.min.css' %}">
+        <link rel="stylesheet" href="{% static 'assets/css/modal-video.min.css' %}">
+        <link rel="stylesheet" href="{% static 'assets/css/odometer.min.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'assets/css/settings.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'assets/css/layers.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'assets/css/navigation.css' %}">
+        <link rel="stylesheet" href="{% static 'assets/css/nice-select.min.css' %}">
+        <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+        <link rel="stylesheet" href="{% static 'assets/css/responsive.css' %}">
+        <link rel="stylesheet" href="{% static 'assets/css/theme-dark.css' %}">
+
+        <!--=== Title & Favicon ===-->
+        <title>Analysis History - LCC Skincare</title>
+        <link rel="icon" type="image/png" href="{% static 'assets/images/favicon.png' %}">
+    </head>
+    <body>
+        <!-- Preloader -->
+        <div class="loader">
+            <div class="d-table">
+                <div class="d-table-cell">
+                    <div class="loading">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Preloader -->
+
+        <!-- Navbar -->
+        <div class="navbar-area sticky-top"> 
+            <!-- Menu For Mobile Device -->
+            <div class="mobile-nav">
+                <a href="{% url 'index' %}" class="logo">
+                    <img src="{% static 'assets/images/logo.png' %}" alt="Logo">
+                </a>
+            </div>
+
+            <!-- Menu For Desktop Device -->
+            <div class="main-nav two four">
+                <div class="container-fluid">
+                    <nav class="navbar navbar-expand-md navbar-light">
+                        <a class="navbar-brand" href="{% url 'index' %}">
+                            <img src="{% static 'assets/images/logo.png' %}" alt="Logo">
+                        </a>
+                        <div class="collapse navbar-collapse mean-menu" id="navbarSupportedContent">
+                            <ul class="navbar-nav">
+                                <li class="nav-item">
+                                    <a href="{% url 'index' %}" class="nav-link">HOME</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{% url 'analysis' %}" class="nav-link">SKIN ANALYSIS</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{% url 'routines' %}" class="nav-link">MY ROUTINES</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{% url 'progress' %}" class="nav-link">PROGRESS</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{% url 'scan_history' %}" class="nav-link active">ANALYSIS HISTORY</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{% url 'shop' %}" class="nav-link">SKINCARE PRODUCTS</a>
+                                </li>
+                            </ul>
+
+                            <div class="side-nav two">
+                                {% if user.is_authenticated %}
+                                <a class="common-btn two nav-btn" href="{% url 'profile' %}" style="margin-right: 10px;">
+                                    <i class='bx bx-user'></i> PROFILE
+                                </a>
+                                <a class="common-btn nav-btn" href="{% url 'logout' %}">LOGOUT</a>
+                                {% else %}
+                                <a class="common-btn two nav-btn" href="{% url 'sign_in' %}">SIGN IN</a>
+                                {% endif %}
+                            </div>
+
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+        <!-- End Navbar -->
+
+        <!-- Page Title -->
+        <div class="page-title-wrap">
+            <div class="page-title-area title-img-six">
+                <div class="title-shape">
+                    <img src="{% static 'assets/images/title/title-shape1.png' %}" alt="Shape">
+                </div>
+                <div class="d-table">
+                    <div class="d-table-cell">
+                        <div class="title-content">
+                            <h2>Analysis History</h2>
+                            <ul>
+                                <li>
+                                    <a href="{% url 'index' %}">Home</a>
+                                </li>
+                                <li>
+                                    <span>Analysis History</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Page Title -->
+
+        <!-- History Content -->
+        <div class="ptb-100">
+            <div class="container">
+                <div class="section-title two">
+                    <span>Track Your Journey</span>
+                    <h2>Past Skin Analysis Results</h2>
+                    <p>Review all your previous skin scans and track how your skin is improving over time with your personalized routine.</p>
+                </div>
+
+                <div class="card shadow-lg border-0" style="border-radius: 20px; overflow: hidden;">
+                    <div class="card-body p-0">
+                        {% if scans %}
+                        <div class="table-responsive">
+                            <table class="table table-hover align-middle mb-0">
+                                <thead class="bg-light">
+                                    <tr>
+                                        <th class="ps-4 py-3">Date</th>
+                                        <th class="py-3">Image</th>
+                                        <th class="py-3 text-center">Health Score</th>
+                                        <th class="py-3">Skin Type</th>
+                                        <th class="py-3 text-center">Acne</th>
+                                        <th class="py-3 text-center">Oiliness</th>
+                                        <th class="pe-4 py-3 text-end">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for scan in scans %}
+                                    <tr>
+                                        <td class="ps-4 fw-bold text-muted">{{ scan.scan_date|date:"F d, Y" }}</td>
+                                        <td>
+                                            <div class="p-1 bg-white border rounded shadow-sm d-inline-block">
+                                                <img src="{{ scan.image.url }}" class="rounded" width="55" height="55" style="object-fit: cover;">
+                                            </div>
+                                        </td>
+                                        <td class="text-center">
+                                            <div class="progress" style="height: 10px; min-width: 80px; margin: 0 auto 5px;">
+                                                <div class="progress-bar bg-success" style="width: {{ scan.health_score }}%"></div>
+                                            </div>
+                                            <span class="badge bg-success-light text-success fw-bold">{{ scan.health_score }}%</span>
+                                        </td>
+                                        <td><span class="badge bg-primary-light text-primary px-3">{{ scan.skin_type|default:"Normal" }}</span></td>
+                                        <td class="text-center text-danger fw-bold">{{ scan.acne_score }}%</td>
+                                        <td class="text-center text-warning fw-bold">{{ scan.oiliness_score }}%</td>
+                                        <td class="pe-4 text-end">
+                                            <a href="{% url 'scan_detail' scan.id %}" class="common-btn two btn-sm">VIEW REPORT</a>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        {% else %}
+                        <div class="text-center py-5">
+                            <div class="mb-4">
+                                <i class='bx bx-history fs-1 text-muted' style="font-size: 5rem !important;"></i>
+                            </div>
+                            <h3>No Analysis Found</h3>
+                            <p class="text-muted">Take a skin scan to start tracking your progress and get personalized recommendations.</p>
+                            <a href="{% url 'analysis' %}" class="common-btn two mt-3">START ANALYSIS</a>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--=== Footer ===-->
+        <footer class="footer-area two pt-100 pb-70">
+            <div class="footer-shape">
+                <img src="{% static 'assets/images/footer-shape1.png' %}" alt="Shape">
+            </div>
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-sm-6 col-lg-4">
+                        <div class="footer-item">
+                            <div class="footer-contact">
+                                <h3>Contact Info:</h3>
+                                <ul class="info">
+                                    <li>
+                                        <a href="#">3 Edgar Buildings, George Street, BA1 2FJ</a>
+                                    </li>
+                                    <li>
+                                        <span>Hotline:</span>
+                                        <a href="tel:9645658765">964-565-8765</a>
+                                    </li>
+                                    <li>
+                                        <span>Email:</span>
+                                        <a href="mailto:support@lccskincare.com">support@lccskincare.com</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6 col-lg-4">
+                        <div class="footer-item">
+                            <div class="footer-img">
+                                <a href="{% url 'index' %}">
+                                    <img src="{% static 'assets/images/logo-two.png' %}" alt="Footer">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6 col-lg-4">
+                        <div class="footer-item">
+                            <h3>Quick Links:</h3>
+                            <ul>
+                                <li><a href="{% url 'index' %}">Home</a></li>
+                                <li><a href="{% url 'analysis' %}">Skin Analysis</a></li>
+                                <li><a href="{% url 'routines' %}">My Routines</a></li>
+                                <li><a href="{% url 'progress' %}">Progress</a></li>
+                                <li><a href="{% url 'shop' %}">Skincare Products</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!--=== End Footer ===-->
+
+        <!--=== Copyright ===-->
+        <div class="copyright-area two">
+            <div class="container">
+                <p>Copyright <i class='bx bx-copyright'></i> 2024 LCC Skincare. All Rights Reserved</p>
+            </div>
+        </div>
+        <!--=== End Copyright ===-->
+
+        <!-- Go Top -->
+        <div class="go-top">
+            <i class='bx bx-chevrons-up'></i>
+            <i class='bx bx-chevrons-up'></i>
+        </div>
+        <!-- End Go Top -->
+
+        <!-- Style adjustments for badges -->
+        <style>
+            .bg-success-light { background-color: rgba(40, 167, 69, 0.1); }
+            .bg-primary-light { background-color: rgba(0, 123, 255, 0.1); }
+            .common-btn.btn-sm { padding: 8px 15px; font-size: 12px; }
+        </style>
+
+        <!--=== Link of JS ===-->
+        <script src="{% static 'assets/js/jquery.min.js' %}"></script>
+        <script src="{% static 'assets/js/bootstrap.bundle.min.js' %}"></script>
+        <script src="{% static 'assets/js/jquery.meanmenu.js' %}"></script>
+        <script src="{% static 'assets/js/wow.min.js' %}"></script>
+        <script src="{% static 'assets/js/owl.carousel.min.js' %}"></script>
+        <script src="{% static 'assets/js/jquery-modal-video.min.js' %}"></script>
+        <script src="{% static 'assets/js/odometer.min.js' %}"></script>
+        <script src="{% static 'assets/js/jquery.appear.min.js' %}"></script>
+        <script src="{% static 'assets/js/jquery.nice-select.min.js' %}"></script>
+        <script src="{% static 'assets/js/custom.js' %}"></script>
+    </body>
+</html>
